@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Logo PNG Generator</title>
+</head>
+<body style="background: #0f172a; color: #fff; font-family: sans-serif; text-align: center; padding: 40px;">
+  <h2>Generating High-Resolution Compressed EST Brand Services Logo PNG...</h2>
+  <canvas id="logoCanvas" width="900" height="340" style="background: transparent; border: 1px dashed rgba(255,255,255,0.2);"></canvas>
+
+  <script>
+    window.onload = function() {
+      const canvas = document.getElementById('logoCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Draw high quality vector SVG image onto canvas
+      const img = new Image();
+      img.src = '/est-logo.svg';
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0, 900, 340);
+        
+        const pngData = canvas.toDataURL('image/png');
+        console.log('Generated PNG base64, length:', pngData.length);
+
+        fetch('http://localhost:5199/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: pngData })
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.body.innerHTML += '<h3 style="color:#10b981;">PNG saved successfully! Size: ' + data.size + ' bytes</h3>';
+        })
+        .catch(err => {
+          console.error('Fetch error:', err);
+          document.body.innerHTML += '<h3 style="color:#ef4444;">Error: ' + err.message + '</h3>';
+        });
+      };
+    };
+  </script>
+</body>
+</html>
