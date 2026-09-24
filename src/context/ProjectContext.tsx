@@ -119,16 +119,16 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
     }
   });
 
-  // Auth User State
+  // Auth User State - Require explicit login by default for fresh sessions/links
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.AUTH_USER);
       if (saved) {
         return JSON.parse(saved);
       }
-      return users[0] || INITIAL_USERS[0]; // Default to Super Admin
+      return null;
     } catch {
-      return users[0] || INITIAL_USERS[0];
+      return null;
     }
   });
 

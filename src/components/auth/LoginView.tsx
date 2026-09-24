@@ -311,7 +311,7 @@ export const LoginView: React.FC = () => {
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.35)',
                 borderRadius: '10px',
-                padding: '10px 14px',
+                padding: '12px 14px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -323,8 +323,8 @@ export const LoginView: React.FC = () => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{
-                  width: 30,
-                  height: 30,
+                  width: 32,
+                  height: 32,
                   borderRadius: '6px',
                   background: 'rgba(245, 158, 11, 0.25)',
                   display: 'flex',
@@ -332,14 +332,19 @@ export const LoginView: React.FC = () => {
                   justifyContent: 'center',
                   color: '#fbbf24',
                 }}>
-                  <ShieldCheck size={17} />
+                  <ShieldCheck size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fbbf24' }}>
-                    Super Admin
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fbbf24' }}>
+                      Super Admin
+                    </span>
+                    <span style={{ fontSize: '0.68rem', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
+                      Full Access
+                    </span>
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
-                    All Projects & Admin Credentials Manager
+                  <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: 2, fontFamily: 'var(--font-mono)' }}>
+                    superadmin@estbrandservices.com | <span style={{ color: '#fbbf24' }}>EST#Super2024</span>
                   </div>
                 </div>
               </div>
@@ -354,7 +359,7 @@ export const LoginView: React.FC = () => {
                 background: 'rgba(59, 130, 246, 0.1)',
                 border: '1px solid rgba(59, 130, 246, 0.25)',
                 borderRadius: '8px',
-                padding: '8px 10px',
+                padding: '10px 10px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
@@ -378,10 +383,10 @@ export const LoginView: React.FC = () => {
               </div>
               <div>
                 <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc' }}>
-                  Admin: Aarav
+                  Aarav Sharma
                 </div>
-                <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
-                  Branding & Web
+                <div style={{ fontSize: '0.68rem', color: '#60a5fa', fontFamily: 'var(--font-mono)' }}>
+                  aarav | Admin@123
                 </div>
               </div>
             </button>
@@ -394,7 +399,7 @@ export const LoginView: React.FC = () => {
                 background: 'rgba(139, 92, 246, 0.1)',
                 border: '1px solid rgba(139, 92, 246, 0.25)',
                 borderRadius: '8px',
-                padding: '8px 10px',
+                padding: '10px 10px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
@@ -418,10 +423,10 @@ export const LoginView: React.FC = () => {
               </div>
               <div>
                 <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc' }}>
-                  Admin: Elena
+                  Elena Rostova
                 </div>
-                <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
-                  Digital & Events
+                <div style={{ fontSize: '0.68rem', color: '#a78bfa', fontFamily: 'var(--font-mono)' }}>
+                  elena | Admin@123
                 </div>
               </div>
             </button>
@@ -435,7 +440,7 @@ export const LoginView: React.FC = () => {
                 background: 'rgba(16, 185, 129, 0.1)',
                 border: '1px solid rgba(16, 185, 129, 0.25)',
                 borderRadius: '8px',
-                padding: '8px 10px',
+                padding: '10px 10px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
@@ -459,10 +464,10 @@ export const LoginView: React.FC = () => {
               </div>
               <div>
                 <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc' }}>
-                  Admin: Vikram Malhotra
+                  Vikram Malhotra
                 </div>
-                <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
-                  Production & PR Specialist
+                <div style={{ fontSize: '0.68rem', color: '#34d399', fontFamily: 'var(--font-mono)' }}>
+                  vikram | Admin@123
                 </div>
               </div>
             </button>
