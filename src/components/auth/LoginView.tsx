@@ -6,16 +6,13 @@ import {
   Mail, 
   Eye, 
   EyeOff, 
-  ShieldCheck, 
   ArrowRight,
-  KeyRound,
   CheckCircle2,
   AlertCircle
 } from 'lucide-react';
 
-
 export const LoginView: React.FC = () => {
-  const { login, users } = useProject();
+  const { login } = useProject();
   
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -39,46 +36,6 @@ export const LoginView: React.FC = () => {
         setErrorMsg(res.message);
       }
     }, 400);
-  };
-
-  const handleQuickLogin = (email: string, pass: string) => {
-    setIdentifier(email);
-    setPassword(pass);
-    setErrorMsg('');
-    setIsSubmitting(true);
-    setTimeout(() => {
-      login(email, pass);
-      setIsSubmitting(false);
-    }, 300);
-  };
-
-  // Demo accounts
-  const superAdmin = users.find((u) => u.role === 'Super Admin') || {
-    name: 'Executive Super Admin',
-    email: 'superadmin@estbrandservices.com',
-    password: 'EST#Super2024',
-    department: 'Central Governance',
-  };
-
-  const adminAarav = users.find((u) => u.username === 'aarav' || u.name.includes('Aarav')) || {
-    name: 'Aarav Sharma',
-    email: 'aarav@estbrandservices.com',
-    password: 'Admin@123',
-    department: 'Branding & Web',
-  };
-
-  const adminElena = users.find((u) => u.username === 'elena' || u.name.includes('Elena')) || {
-    name: 'Elena Rostova',
-    email: 'elena@estbrandservices.com',
-    password: 'Admin@123',
-    department: 'Digital & Events',
-  };
-
-  const adminVikram = users.find((u) => u.username === 'vikram' || u.name.includes('Vikram')) || {
-    name: 'Vikram Malhotra',
-    email: 'vikram@estbrandservices.com',
-    password: 'Admin@123',
-    department: 'Production & PR',
   };
 
   return (
@@ -118,7 +75,7 @@ export const LoginView: React.FC = () => {
 
       <div style={{
         width: '100%',
-        maxWidth: '480px',
+        maxWidth: '460px',
         zIndex: 10,
         animation: 'fadeIn 0.3s ease',
       }}>
@@ -180,7 +137,7 @@ export const LoginView: React.FC = () => {
                 <input
                   type="text"
                   className="form-input"
-                  placeholder="e.g. superadmin@estbrandservices.com or aarav"
+                  placeholder="Enter email or username"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   style={{
@@ -209,15 +166,15 @@ export const LoginView: React.FC = () => {
                 <label className="form-label" style={{ fontSize: '0.8rem', margin: 0 }}>
                   Password
                 </label>
-                <span style={{ fontSize: '0.72rem', color: '#60a5fa' }}>
-                  Managed by Super Admin
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                  Enterprise RBAC Protected
                 </span>
               </div>
               <div style={{ position: 'relative' }}>
                 <input
                   type={showPassword ? 'text' : 'password'}
                   className="form-input"
-                  placeholder="Enter your password"
+                  placeholder="Enter password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   style={{
@@ -284,209 +241,20 @@ export const LoginView: React.FC = () => {
             </button>
           </form>
 
-          {/* Divider */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            margin: '24px 0 18px 0',
-            color: 'var(--text-muted)',
-            fontSize: '0.74rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}>
-            <div style={{ flex: 1, height: 1, background: 'var(--border-subtle)' }} />
-            <span>1-Click Demo Logins</span>
-            <div style={{ flex: 1, height: 1, background: 'var(--border-subtle)' }} />
-          </div>
-
-          {/* Quick Demo Credentials Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-            {/* Super Admin CTA */}
-            <button
-              type="button"
-              onClick={() => handleQuickLogin(superAdmin.email, superAdmin.password || 'EST#Super2024')}
-              style={{
-                gridColumn: '1 / -1',
-                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1))',
-                border: '1px solid rgba(245, 158, 11, 0.35)',
-                borderRadius: '10px',
-                padding: '12px 14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                color: '#fff',
-                cursor: 'pointer',
-                textAlign: 'left',
-                transition: 'all 0.2s',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: '6px',
-                  background: 'rgba(245, 158, 11, 0.25)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fbbf24',
-                }}>
-                  <ShieldCheck size={18} />
-                </div>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fbbf24' }}>
-                      Super Admin
-                    </span>
-                    <span style={{ fontSize: '0.68rem', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
-                      Full Access
-                    </span>
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: 2, fontFamily: 'var(--font-mono)' }}>
-                    superadmin@estbrandservices.com | <span style={{ color: '#fbbf24' }}>EST#Super2024</span>
-                  </div>
-                </div>
-              </div>
-              <KeyRound size={15} color="#fbbf24" />
-            </button>
-
-            {/* Admin Aarav */}
-            <button
-              type="button"
-              onClick={() => handleQuickLogin(adminAarav.email, adminAarav.password || 'Admin@123')}
-              style={{
-                background: 'rgba(59, 130, 246, 0.1)',
-                border: '1px solid rgba(59, 130, 246, 0.25)',
-                borderRadius: '8px',
-                padding: '10px 10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                color: '#fff',
-                cursor: 'pointer',
-                textAlign: 'left',
-              }}
-            >
-              <div style={{
-                width: 24,
-                height: 24,
-                borderRadius: '50%',
-                background: '#3b82f6',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.68rem',
-                fontWeight: 700,
-              }}>
-                A
-              </div>
-              <div>
-                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc' }}>
-                  Aarav Sharma
-                </div>
-                <div style={{ fontSize: '0.68rem', color: '#60a5fa', fontFamily: 'var(--font-mono)' }}>
-                  aarav | Admin@123
-                </div>
-              </div>
-            </button>
-
-            {/* Admin Elena */}
-            <button
-              type="button"
-              onClick={() => handleQuickLogin(adminElena.email, adminElena.password || 'Admin@123')}
-              style={{
-                background: 'rgba(139, 92, 246, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.25)',
-                borderRadius: '8px',
-                padding: '10px 10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                color: '#fff',
-                cursor: 'pointer',
-                textAlign: 'left',
-              }}
-            >
-              <div style={{
-                width: 24,
-                height: 24,
-                borderRadius: '50%',
-                background: '#8b5cf6',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.68rem',
-                fontWeight: 700,
-              }}>
-                E
-              </div>
-              <div>
-                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc' }}>
-                  Elena Rostova
-                </div>
-                <div style={{ fontSize: '0.68rem', color: '#a78bfa', fontFamily: 'var(--font-mono)' }}>
-                  elena | Admin@123
-                </div>
-              </div>
-            </button>
-
-            {/* Admin Vikram */}
-            <button
-              type="button"
-              onClick={() => handleQuickLogin(adminVikram.email, adminVikram.password || 'Admin@123')}
-              style={{
-                gridColumn: '1 / -1',
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1px solid rgba(16, 185, 129, 0.25)',
-                borderRadius: '8px',
-                padding: '10px 10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                color: '#fff',
-                cursor: 'pointer',
-                textAlign: 'left',
-              }}
-            >
-              <div style={{
-                width: 24,
-                height: 24,
-                borderRadius: '50%',
-                background: '#10b981',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.68rem',
-                fontWeight: 700,
-              }}>
-                V
-              </div>
-              <div>
-                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc' }}>
-                  Vikram Malhotra
-                </div>
-                <div style={{ fontSize: '0.68rem', color: '#34d399', fontFamily: 'var(--font-mono)' }}>
-                  vikram | Admin@123
-                </div>
-              </div>
-            </button>
-          </div>
-
-
           {/* Info footer */}
           <div style={{
-            marginTop: '22px',
+            marginTop: '24px',
             paddingTop: '16px',
             borderTop: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: 8,
             fontSize: '0.74rem',
             color: 'var(--text-muted)',
           }}>
             <CheckCircle2 size={14} color="#10b981" />
-            <span>Strict project isolation: Admins only view their own workspaces.</span>
+            <span>Strict project isolation: Authorized personnel only.</span>
           </div>
         </div>
       </div>
