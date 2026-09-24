@@ -15,7 +15,7 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
   onClose,
   projectId,
 }) => {
-  const { addDeliverable, users, selectedProject } = useProject();
+  const { addDeliverable, users, currentUser, selectedProject } = useProject();
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('Production');
@@ -23,7 +23,7 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
   const [startDate, setStartDate] = useState(() => selectedProject?.startDate || new Date().toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(() => selectedProject?.targetEndDate || new Date().toISOString().split('T')[0]);
   const [progress, setProgress] = useState(25);
-  const [assignedTo, setAssignedTo] = useState(users[0]?.name || 'Aarav Sharma');
+  const [assignedTo, setAssignedTo] = useState(() => currentUser?.name || users[0]?.name || 'Vishnu Pal Dubey');
   const [currency, setCurrency] = useState<CurrencyCode>(() => {
     const defaultDelCurr = selectedProject?.deliverables?.[0]?.currency;
     return (defaultDelCurr || selectedProject?.currency || 'INR') as CurrencyCode;
@@ -39,8 +39,11 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
       setCurrency(activeCurr);
       setStartDate(selectedProject.startDate);
       setEndDate(selectedProject.targetEndDate);
+      if (currentUser?.name) {
+        setAssignedTo(currentUser.name);
+      }
     }
-  }, [isOpen, selectedProject]);
+  }, [isOpen, selectedProject, currentUser]);
 
   if (!isOpen) return null;
 

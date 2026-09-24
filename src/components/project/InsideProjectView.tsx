@@ -35,6 +35,7 @@ export const InsideProjectView: React.FC = () => {
     deleteDeliverable,
     addDeliverable,
     users,
+    currentUser,
     showToast
   } = useProject();
 
@@ -42,7 +43,7 @@ export const InsideProjectView: React.FC = () => {
   
   // Inline quick add state
   const [inlineExpenseType, setInlineExpenseType] = useState('');
-  const [inlineAssignee, setInlineAssignee] = useState(users[0]?.name || 'Aarav Sharma');
+  const [inlineAssignee, setInlineAssignee] = useState(() => currentUser?.name || users[0]?.name || 'Vishnu Pal Dubey');
   const [inlineCurrency, setInlineCurrency] = useState<CurrencyCode>(() => (selectedProject?.currency as CurrencyCode) || 'INR');
   const [inlineCost, setInlineCost] = useState('5000');
   const [inlineTaxRate, setInlineTaxRate] = useState('18');
