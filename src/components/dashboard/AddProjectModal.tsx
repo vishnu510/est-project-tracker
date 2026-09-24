@@ -10,7 +10,7 @@ interface AddProjectModalProps {
 }
 
 export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClose }) => {
-  const { addProject, getNextProjectId, users } = useProject();
+  const { addProject, getNextProjectId, users, currentUser } = useProject();
 
   const [projectId, setProjectId] = useState('');
   const [name, setName] = useState('');
@@ -28,7 +28,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
   });
   const [budget, setBudget] = useState('500000');
   const [currency, setCurrency] = useState<CurrencyCode>('INR');
-  const [leadManager, setLeadManager] = useState('Aarav Sharma');
+  const [leadManager, setLeadManager] = useState(() => currentUser?.name || 'Executive Super Admin');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<'High' | 'Medium' | 'Low'>('High');
   const [health] = useState<'On Track' | 'At Risk' | 'Delayed'>('On Track');
@@ -44,8 +44,11 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
   useEffect(() => {
     if (isOpen) {
       setProjectId(getNextProjectId());
+      if (currentUser?.name) {
+        setLeadManager(currentUser.name);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, currentUser]);
 
   if (!isOpen) return null;
 

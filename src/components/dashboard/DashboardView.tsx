@@ -16,6 +16,7 @@ import {
   Briefcase
 } from 'lucide-react';
 import { ExportButton } from '../common/ExportButton';
+import { UserAvatar } from '../common/UserAvatar';
 import { 
   exportProjectsToExcel, 
   exportProjectsToCSV, 
@@ -474,22 +475,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onOpenAddProject }
                       {/* Lead Admin */}
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          {project.leadAvatar ? (
-                            <img 
-                              src={project.leadAvatar} 
-                              alt={project.leadManager} 
-                              style={{ width: 26, height: 26, borderRadius: '50%', objectFit: 'cover' }}
-                            />
-                          ) : (
-                            <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem' }}>
-                              {project.leadManager.charAt(0)}
-                            </div>
-                          )}
+                          <UserAvatar name={project.leadManager} avatarUrl={project.leadAvatar} size={26} />
                           <div>
                             <div style={{ fontSize: '0.82rem', color: '#fff', fontWeight: 500 }}>
                               {project.leadManager}
                             </div>
-                            {project.createdByAdminName && project.createdByAdminName !== project.leadManager && (
+                            {project.createdByAdminName && project.createdByAdminName.toLowerCase() !== project.leadManager.toLowerCase() && (
                               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
                                 By {project.createdByAdminName.split(' ')[0]}
                               </div>

@@ -3,6 +3,7 @@ import { useProject } from '../../context/ProjectContext';
 import type { ViewType } from '../../types';
 import { getCurrencySymbol } from '../../types';
 import { ESTLogo } from '../common/ESTLogo';
+import { UserAvatar } from '../common/UserAvatar';
 import { 
   LayoutDashboard, 
   FolderKanban, 
@@ -150,28 +151,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
           gap: 10
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {currentUser?.avatar ? (
-              <img 
-                src={currentUser.avatar} 
-                alt={currentUser.name} 
-                style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover', border: '1px solid rgba(255,255,255,0.2)' }} 
-              />
-            ) : (
-              <div style={{ 
-                width: 34, 
-                height: 34, 
-                borderRadius: '50%', 
-                background: isSuperAdmin ? '#f59e0b' : '#3b82f6', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: '0.85rem'
-              }}>
-                {currentUser?.name?.charAt(0) || 'U'}
-              </div>
-            )}
+            <UserAvatar 
+              name={currentUser?.name} 
+              avatarUrl={currentUser?.avatar} 
+              size={34} 
+              fontSize="0.85rem"
+              style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+            />
             <div style={{ textAlign: 'left', minWidth: 0, flex: 1 }}>
               <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {currentUser?.name || 'Guest User'}

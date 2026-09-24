@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import { CreateAdminModal } from './CreateAdminModal';
+import { UserAvatar } from '../common/UserAvatar';
 import { 
   ShieldCheck, 
   UserPlus, 
@@ -273,11 +274,7 @@ export const UserManagementView: React.FC = () => {
                     {/* User */}
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <img 
-                          src={u.avatar} 
-                          alt={u.name} 
-                          style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover' }} 
-                        />
+                        <UserAvatar name={u.name} avatarUrl={u.avatar} size={34} fontSize="0.82rem" />
                         <div>
                           <div style={{ fontWeight: 600, color: '#fff', fontSize: '0.88rem' }}>
                             {u.name}

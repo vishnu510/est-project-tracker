@@ -396,12 +396,17 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
       total: baseCost + taxAmount,
     }));
 
-    const leadMgr = projectData.leadManager || currentUser?.name || 'Admin';
+    const assignedUser = users.find(
+      (u) => u.name.toLowerCase() === (projectData.leadManager || '').toLowerCase()
+    );
+    const leadMgr = projectData.leadManager || currentUser?.name || 'Executive Super Admin';
+    const leadAvatar = projectData.leadAvatar || assignedUser?.avatar || currentUser?.avatar;
+
     const newProject: Project = {
       ...projectData,
       currency: projectData.currency || 'INR',
       leadManager: leadMgr,
-      leadAvatar: projectData.leadAvatar || currentUser?.avatar,
+      leadAvatar: leadAvatar,
       createdByAdminId: currentUser?.id || 'usr-super',
       createdByAdminName: currentUser?.name || 'Super Admin',
       deliverables: initialDels,

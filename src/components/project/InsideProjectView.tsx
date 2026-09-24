@@ -5,7 +5,6 @@ import { CURRENCY_OPTIONS, getCurrencySymbol } from '../../types';
 import { AddDeliverableModal } from './AddDeliverableModal';
 import { 
   Building2, 
-  User, 
   Mail, 
   Phone, 
   Calendar, 
@@ -18,6 +17,7 @@ import {
 } from 'lucide-react';
 
 import { ExportButton } from '../common/ExportButton';
+import { UserAvatar } from '../common/UserAvatar';
 import { 
   exportProjectExpensesToExcel, 
   exportProjectExpensesToCSV, 
@@ -449,11 +449,7 @@ export const InsideProjectView: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid var(--border-subtle)' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Project Lead:</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                {project.leadAvatar ? (
-                  <img src={project.leadAvatar} alt={project.leadManager} style={{ width: 22, height: 22, borderRadius: '50%' }} />
-                ) : (
-                  <User size={16} />
-                )}
+                <UserAvatar name={project.leadManager} avatarUrl={project.leadAvatar} size={22} />
                 <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#fff' }}>{project.leadManager}</span>
               </div>
             </div>
@@ -763,28 +759,7 @@ export const InsideProjectView: React.FC = () => {
                       {/* Assignee */}
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          {del.assignedAvatar ? (
-                            <img 
-                              src={del.assignedAvatar} 
-                              alt={del.assignedTo} 
-                              style={{ width: 24, height: 24, borderRadius: '50%', objectFit: 'cover' }} 
-                            />
-                          ) : (
-                            <div style={{ 
-                              width: 24, 
-                              height: 24, 
-                              borderRadius: '50%', 
-                              background: 'linear-gradient(135deg, #3b82f6, #6366f1)', 
-                              display: 'flex', 
-                              alignItems: 'center', 
-                              justifyContent: 'center', 
-                              fontSize: '0.7rem',
-                              color: '#fff',
-                              fontWeight: 700 
-                            }}>
-                              {del.assignedTo.charAt(0)}
-                            </div>
-                          )}
+                          <UserAvatar name={del.assignedTo} avatarUrl={del.assignedAvatar} size={24} />
                           <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)', fontWeight: 500 }}>
                             {del.assignedTo}
                           </span>
