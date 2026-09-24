@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Convert Official WebP to PNG</title>
+</head>
+<body style="background: #0f172a; color: #fff; text-align: center; padding: 40px; font-family: sans-serif;">
+  <h2>Converting Official Website Logos to PNG...</h2>
+  <canvas id="canvasDark"></canvas>
+  <canvas id="canvasLight"></canvas>
+
+  <script>
+    async function convert() {
+      const imgDark = new Image();
+      imgDark.src = '/est-logo-dark.webp';
+      await new Promise(r => imgDark.onload = r);
+
+      const canvasDark = document.getElementById('canvasDark');
+      canvasDark.width = imgDark.naturalWidth;
+      canvasDark.height = imgDark.naturalHeight;
+      const ctxDark = canvasDark.getContext('2d');
+      ctxDark.drawImage(imgDark, 0, 0);
+      const pngDark = canvasDark.toDataURL('image/png');
+
+      const imgLight = new Image();
+      imgLight.src = '/est-logo-light.webp';
+      await new Promise(r => imgLight.onload = r);
+
+      const canvasLight = document.getElementById('canvasLight');
+      canvasLight.width = imgLight.naturalWidth;
+      canvasLight.height = imgLight.naturalHeight;
+      const ctxLight = canvasLight.getContext('2d');
+      ctxLight.drawImage(imgLight, 0, 0);
+      const pngLight = canvasLight.toDataURL('image/png');
+
+      const res = await fetch('http://localhost:5198/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dark: pngDark, light: pngLight })
+      });
+      const result = await res.json();
+      document.body.innerHTML += '<h3 style="color:#10b981;">Converted & Saved Official PNGs Successfully! (' + result.darkSize + ' bytes)</h3>';
+    }
+
+    window.onload = convert;
+  </script>
+</body>
+</html>
