@@ -95,6 +95,11 @@ export const InsideProjectView: React.FC = () => {
   }
 
   const project = selectedProject;
+  const assignedAdminUser = users.find(u => (u.assignedProjectIds || []).includes(project.id) && (u.role === 'Admin' || u.role === 'Super Admin'))
+    || users.find(u => u.name.toLowerCase() === project.leadManager?.toLowerCase());
+  const effectiveLeadManager = assignedAdminUser?.name || project.leadManager;
+  const effectiveLeadAvatar = assignedAdminUser?.avatar || project.leadAvatar;
+
   const projectCurrency = (project.currency as CurrencyCode) || 'INR';
   const currSymbol = getCurrencySymbol(projectCurrency);
 
@@ -449,8 +454,8 @@ export const InsideProjectView: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid var(--border-subtle)' }}>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Project Lead:</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <UserAvatar name={project.leadManager} avatarUrl={project.leadAvatar} size={22} />
-                <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#fff' }}>{project.leadManager}</span>
+                <UserAvatar name={effectiveLeadManager} avatarUrl={effectiveLeadAvatar} size={22} />
+                <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#fff' }}>{effectiveLeadManager}</span>
               </div>
             </div>
           </div>

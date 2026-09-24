@@ -341,6 +341,23 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
 
     setUsers((prev) => [newAdmin, ...prev]);
 
+    // Update assigned projects lead manager
+    if (data.assignedProjectIds && data.assignedProjectIds.length > 0) {
+      setProjects((prev) =>
+        prev.map((p) => {
+          if (data.assignedProjectIds!.includes(p.id)) {
+            return {
+              ...p,
+              leadManager: newAdmin.name,
+              leadAvatar: newAdmin.avatar,
+              teamMembers: Array.from(new Set([...(p.teamMembers || []), newAdmin.name])),
+            };
+          }
+          return p;
+        })
+      );
+    }
+
     // Log Activity
     const log: ActivityLog = {
       id: `log-${Date.now()}`,
@@ -633,6 +650,29 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
         return u;
       })
     );
+
+    if (updates.assignedProjectIds) {
+      const targetUser = users.find((u) => u.id === id);
+      const adminName = updates.name || targetUser?.name;
+      const adminAvatar = updates.avatar || targetUser?.avatar;
+
+      if (adminName) {
+        setProjects((prev) =>
+          prev.map((p) => {
+            if (updates.assignedProjectIds!.includes(p.id)) {
+              return {
+                ...p,
+                leadManager: adminName,
+                leadAvatar: adminAvatar || p.leadAvatar,
+                teamMembers: Array.from(new Set([...(p.teamMembers || []), adminName])),
+              };
+            }
+            return p;
+          })
+        );
+      }
+    }
+
     showToast('User Updated', 'Account credentials modified', 'info');
   };
 

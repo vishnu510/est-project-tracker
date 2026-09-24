@@ -379,6 +379,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onOpenAddProject }
               ) : (
                 filteredProjects.map((project) => {
                   const progress = calculateProgress(project);
+                  const assignedAdminUser = users.find(u => (u.assignedProjectIds || []).includes(project.id) && (u.role === 'Admin' || u.role === 'Super Admin'))
+                    || users.find(u => u.name.toLowerCase() === project.leadManager?.toLowerCase());
+                  const effectiveLeadManager = assignedAdminUser?.name || project.leadManager;
+                  const effectiveLeadAvatar = assignedAdminUser?.avatar || project.leadAvatar;
+
                   return (
                     <tr key={project.id}>
                       {/* Project ID */}
@@ -475,12 +480,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onOpenAddProject }
                       {/* Lead Admin */}
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <UserAvatar name={project.leadManager} avatarUrl={project.leadAvatar} size={26} />
+                          <UserAvatar name={effectiveLeadManager} avatarUrl={effectiveLeadAvatar} size={26} />
                           <div>
                             <div style={{ fontSize: '0.82rem', color: '#fff', fontWeight: 500 }}>
-                              {project.leadManager}
+                              {effectiveLeadManager}
                             </div>
-                            {project.createdByAdminName && project.createdByAdminName.toLowerCase() !== project.leadManager.toLowerCase() && (
+                            {project.createdByAdminName && project.createdByAdminName.toLowerCase() !== effectiveLeadManager.toLowerCase() && (
                               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
                                 By {project.createdByAdminName.split(' ')[0]}
                               </div>
