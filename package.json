@@ -1,15 +1,58 @@
 {
   "name": "est-trackers",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "EST Brand Services - Enterprise Project Tracker Portal",
+  "author": "EST Brand Services",
   "type": "module",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "electron:start": "electron .",
+    "build:win": "npm run build && electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.estbrandservices.projecttracker",
+    "productName": "EST Brand Services",
+    "copyright": "Copyright © 2026 EST Brand Services",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "public/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/est-logo.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "EST Project Tracker",
+      "uninstallDisplayName": "EST Brand Services Project Tracker"
+    }
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -25,6 +68,8 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
     "gh-pages": "^6.3.0",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",

@@ -4,7 +4,8 @@ import {
   Search, 
   Plus, 
   ShieldCheck,
-  Briefcase
+  Briefcase,
+  Download
 } from 'lucide-react';
 
 interface TopHeaderProps {
@@ -102,6 +103,30 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           <Plus size={15} />
           <span>New Project</span>
         </button>
+
+        {/* Download Windows App (.EXE) */}
+        <a
+          href="https://github.com/vishnu510/est-project-tracker/releases"
+          target="_blank"
+          rel="noreferrer"
+          className="btn-secondary"
+          style={{ 
+            padding: '8px 14px', 
+            fontSize: '0.84rem', 
+            textDecoration: 'none', 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: 6,
+            background: 'rgba(59, 130, 246, 0.1)',
+            borderColor: 'rgba(59, 130, 246, 0.3)',
+            color: '#60a5fa'
+          }}
+          title="Download Desktop Windows App (.exe)"
+          id="topbar-download-exe-btn"
+        >
+          <Download size={14} />
+          <span>Download .EXE</span>
+        </a>
 
         {/* Persona Pill */}
         <div style={{
