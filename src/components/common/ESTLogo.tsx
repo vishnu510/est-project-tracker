@@ -1,4 +1,5 @@
 import React from 'react';
+import estLogo from '../../assets/est-logo.png';
 
 interface ESTLogoProps {
   height?: number | string;
@@ -15,7 +16,7 @@ export const ESTLogo: React.FC<ESTLogoProps> = ({
   return (
     <div className={`est-brand-logo ${className}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
       <img
-        src="/est-logo.png"
+        src={estLogo}
         alt="EST Brand Services"
         style={{
           height: typeof height === 'number' ? `${height}px` : height,
