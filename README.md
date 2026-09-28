@@ -14,8 +14,8 @@ You can download the Windows desktop application directly from the **[GitHub Rel
 
 | File | Type | Description |
 | :--- | :--- | :--- |
-| 🚀 **[EST Brand Services Setup 1.0.0.exe](https://github.com/vishnu510/est-project-tracker/releases/download/v1.0.0/EST.Brand.Services.Setup.1.0.0.exe)** | **Windows Installer** | Setup wizard with desktop & start menu shortcuts. |
-| ⚡ **[EST Brand Services 1.0.0.exe](https://github.com/vishnu510/est-project-tracker/releases/download/v1.0.0/EST.Brand.Services.1.0.0.exe)** | **Portable Executable** | Single standalone `.exe` file that runs instantly without installation. |
+| 🚀 **[EST Brand Services Setup 2.0.0.exe](https://github.com/vishnu510/est-project-tracker/releases/download/v2.0.0/EST.Brand.Services.Setup.2.0.0.exe)** | **Windows Installer** | Setup wizard with desktop & start menu shortcuts. |
+| ⚡ **[EST Brand Services 2.0.0.exe](https://github.com/vishnu510/est-project-tracker/releases/download/v2.0.0/EST.Brand.Services.2.0.0.exe)** | **Portable Executable** | Single standalone `.exe` file that runs instantly without installation. |
 
 > 💡 **Tip**: If you are using the web version, you can also click the **"Download .EXE"** button located at the top right of the application header!
 
