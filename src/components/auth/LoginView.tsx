@@ -132,17 +132,22 @@ export const LoginView: React.FC = () => {
             <div style={{
               background: 'rgba(239, 68, 68, 0.12)',
               border: '1px solid rgba(239, 68, 68, 0.3)',
-              borderRadius: '8px',
-              padding: '10px 14px',
+              borderRadius: '10px',
+              padding: '12px 14px',
               marginBottom: '18px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
               color: '#f87171',
               fontSize: '0.84rem',
             }}>
-              <AlertCircle size={17} style={{ flexShrink: 0 }} />
-              <span>{errorMsg}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: errorMsg.includes('password') ? 6 : 0 }}>
+                <AlertCircle size={17} style={{ flexShrink: 0 }} />
+                <span style={{ fontWeight: 600 }}>{errorMsg}</span>
+              </div>
+              {errorMsg.includes('password') && (
+                <div style={{ fontSize: '0.78rem', color: '#94a3b8', paddingLeft: 27, lineHeight: 1.4 }}>
+                  Default offline password is <code style={{ color: '#60a5fa', background: 'rgba(59,130,246,0.15)', padding: '1px 5px', borderRadius: 4 }}>Admin@123</code>.
+                  If you created a new password on the Desktop App, connect your <button type="button" onClick={() => setIsCloudDbModalOpen(true)} style={{ color: '#38bdf8', background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer', fontSize: '0.78rem' }}>Cloud Database</button> to sync it.
+                </div>
+              )}
             </div>
           )}
 
@@ -260,9 +265,84 @@ export const LoginView: React.FC = () => {
             </button>
           </form>
 
+          {/* Quick Demo Credentials Fill Pills */}
+          <div style={{
+            marginTop: '16px',
+            padding: '10px 12px',
+            background: 'rgba(15, 23, 42, 0.6)',
+            borderRadius: '10px',
+            border: '1px solid rgba(255, 255, 255, 0.06)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 6,
+          }}>
+            <div style={{ fontSize: '0.72rem', color: '#94a3b8', fontWeight: 600, display: 'flex', justifyContent: 'space-between' }}>
+              <span>Quick Login Presets (Offline Demo):</span>
+            </div>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setIdentifier('vishnu@estbrandservices.com');
+                  setPassword('Admin@123');
+                }}
+                style={{
+                  background: 'rgba(59, 130, 246, 0.15)',
+                  border: '1px solid rgba(59, 130, 246, 0.3)',
+                  color: '#93c5fd',
+                  borderRadius: '6px',
+                  padding: '3px 8px',
+                  fontSize: '0.72rem',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                }}
+              >
+                Admin (Vishnu)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIdentifier('superadmin@estbrandservices.com');
+                  setPassword('EST#Super2024');
+                }}
+                style={{
+                  background: 'rgba(168, 85, 247, 0.15)',
+                  border: '1px solid rgba(168, 85, 247, 0.3)',
+                  color: '#d8b4fe',
+                  borderRadius: '6px',
+                  padding: '3px 8px',
+                  fontSize: '0.72rem',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                }}
+              >
+                Super Admin
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIdentifier('rohan.v@estbrandservices.com');
+                  setPassword('Member@123');
+                }}
+                style={{
+                  background: 'rgba(16, 185, 129, 0.15)',
+                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  color: '#6ee7b7',
+                  borderRadius: '6px',
+                  padding: '3px 8px',
+                  fontSize: '0.72rem',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                }}
+              >
+                Team Member
+              </button>
+            </div>
+          </div>
+
           {/* Cloud Database Setup Link on Login Card */}
           <div style={{
-            marginTop: '20px',
+            marginTop: '16px',
             textAlign: 'center',
           }}>
             <button
