@@ -8,10 +8,11 @@ import { DashboardView } from './components/dashboard/DashboardView';
 import { InsideProjectView } from './components/project/InsideProjectView';
 import { UserManagementView } from './components/users/UserManagementView';
 import { AddProjectModal } from './components/dashboard/AddProjectModal';
+import { CloudDatabaseModal } from './components/database/CloudDatabaseModal';
 import { LoginView } from './components/auth/LoginView';
 
 const AppContent: React.FC = () => {
-  const { currentView, currentUser } = useProject();
+  const { currentView, currentUser, isCloudDbModalOpen, setIsCloudDbModalOpen } = useProject();
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
 
   // If no user is logged in, show Executive Login Portal
@@ -59,7 +60,7 @@ const AppContent: React.FC = () => {
             </div>
             <div style={{ display: 'flex', gap: 16 }}>
               <span>Super Admin Governance</span>
-              <span>Project Isolation RBAC</span>
+              <span>10-Year Cloud PostgreSQL Persistence</span>
               <span>Logged in as: <strong style={{ color: '#fff' }}>{currentUser.name}</strong> ({currentUser.role})</span>
             </div>
           </div>
@@ -70,6 +71,12 @@ const AppContent: React.FC = () => {
       <AddProjectModal
         isOpen={isAddProjectModalOpen}
         onClose={() => setIsAddProjectModalOpen(false)}
+      />
+
+      {/* Global Cloud Database & 10-Year Archiving Modal */}
+      <CloudDatabaseModal
+        isOpen={isCloudDbModalOpen}
+        onClose={() => setIsCloudDbModalOpen(false)}
       />
 
       {/* Global Toast Notifications */}
@@ -85,4 +92,3 @@ export default function App() {
     </ProjectProvider>
   );
 }
-

@@ -13,7 +13,8 @@ import {
   ShieldCheck, 
   RotateCcw,
   LogOut,
-  Briefcase
+  Briefcase,
+  Database
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -29,7 +30,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
     logout,
     resetToDemoData,
     visibleProjects,
-    users
+    users,
+    cloudStatus,
+    setIsCloudDbModalOpen
   } = useProject();
 
   const isSuperAdmin = currentUser?.role === 'Super Admin';
@@ -115,6 +118,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
             </button>
           );
         })}
+
+        {/* Cloud Database & 10-Yr Retention Trigger */}
+        <button
+          className="sidebar-nav-item"
+          onClick={() => setIsCloudDbModalOpen(true)}
+          id="sidebar-nav-cloud-db"
+          style={{ marginTop: 6 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <Database size={18} color={cloudStatus === 'online' ? '#34d399' : '#60a5fa'} />
+            <span>Cloud Database & Sync</span>
+          </div>
+          <span style={{
+            fontSize: '0.68rem',
+            fontWeight: 700,
+            padding: '2px 6px',
+            borderRadius: '4px',
+            background: cloudStatus === 'online' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(59, 130, 246, 0.2)',
+            color: cloudStatus === 'online' ? '#34d399' : '#60a5fa',
+          }}>
+            {cloudStatus === 'online' ? 'Live' : 'DB'}
+          </span>
+        </button>
       </nav>
 
       {/* Mini Workspace Summary Card */}
@@ -202,4 +228,3 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
     </aside>
   );
 };
-

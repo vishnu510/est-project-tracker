@@ -1,5 +1,6 @@
 import React from 'react';
 import { useProject } from '../../context/ProjectContext';
+import { CloudStatusBadge } from '../database/CloudStatusBadge';
 import { 
   Search, 
   Plus, 
@@ -18,7 +19,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
     searchQuery, 
     setSearchQuery, 
     currentUser,
-    selectedProject 
+    selectedProject,
+    cloudStatus,
+    setIsCloudDbModalOpen
   } = useProject();
 
   const isSuperAdmin = currentUser?.role === 'Super Admin';
@@ -68,7 +71,13 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
       </div>
 
       {/* Right Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        {/* Real-time Cloud DB Status Badge */}
+        <CloudStatusBadge
+          status={cloudStatus}
+          onClick={() => setIsCloudDbModalOpen(true)}
+        />
+
         {/* Search Bar */}
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
           <Search size={15} style={{ position: 'absolute', left: 12, color: 'var(--text-muted)' }} />
@@ -84,12 +93,12 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
               padding: '7px 14px 7px 36px',
               fontSize: '0.84rem',
               color: 'var(--text-primary)',
-              width: '240px',
+              width: '220px',
               outline: 'none',
               transition: 'width 0.2s ease, border-color 0.2s ease',
             }}
-            onFocus={(e) => (e.target.style.width = '300px')}
-            onBlur={(e) => (e.target.style.width = '240px')}
+            onFocus={(e) => (e.target.style.width = '280px')}
+            onBlur={(e) => (e.target.style.width = '220px')}
           />
         </div>
 
@@ -97,7 +106,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
         <button 
           className="btn-primary" 
           onClick={onOpenAddProject}
-          style={{ padding: '8px 16px', fontSize: '0.84rem' }}
+          style={{ padding: '8px 15px', fontSize: '0.84rem' }}
           id="topbar-add-project-btn"
         >
           <Plus size={15} />
@@ -111,7 +120,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           rel="noreferrer"
           className="btn-secondary"
           style={{ 
-            padding: '8px 14px', 
+            padding: '8px 13px', 
             fontSize: '0.84rem', 
             textDecoration: 'none', 
             display: 'inline-flex', 
@@ -125,7 +134,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           id="topbar-download-exe-btn"
         >
           <Download size={14} />
-          <span>Download .EXE</span>
+          <span>.EXE</span>
         </a>
 
         {/* Persona Pill */}
@@ -135,7 +144,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           gap: 8,
           background: isSuperAdmin ? 'rgba(245, 158, 11, 0.15)' : 'rgba(59, 130, 246, 0.15)',
           border: `1px solid ${isSuperAdmin ? 'rgba(245, 158, 11, 0.35)' : 'rgba(59, 130, 246, 0.35)'}`,
-          padding: '6px 14px',
+          padding: '6px 12px',
           borderRadius: 'var(--radius-full)',
           fontSize: '0.8rem',
           color: isSuperAdmin ? '#fbbf24' : '#60a5fa'
@@ -158,4 +167,3 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
     </header>
   );
 };
-

@@ -30,6 +30,11 @@ Access the live deployed application in your web browser:
 ## ✨ Key Features
 
 - 🏢 **Multi-Project Management**: Manage enterprise brand campaigns, sprints, and client scopes.
+- ☁️ **10-Year Cloud PostgreSQL Database**: Permanent cloud persistence powered by Supabase with automated snapshots, zero data loss, and multi-device access.
+- ⚡ **Real-time WebSockets Sync**: Instant live multi-admin synchronization across browsers, laptops, and desktop apps worldwide.
+- 💾 **Offline Local Caching**: Works seamlessly even when offline with automatic background sync upon reconnection.
+- 🚀 **1-Click Cloud Migration**: Migrate local data directly to Supabase cloud with interactive progress tracking.
+- 📦 **10-Year Archiving & Disaster Recovery**: Export full historical records to PostgreSQL `.sql` dump, enterprise `.json` archive, and multi-sheet master `.xlsx` workbook.
 - 💰 **Budget & Expense Tracking**: Dynamic breakdown across Operations, Marketing, Tech, & Logistics.
 - 📊 **Executive Master Dashboard**: Real-time KPI summaries, budget health, and progress charts.
 - 👥 **Role-Based Access (RBAC)**: Super Admin full oversight vs. Admin-restricted project workspaces.
@@ -37,6 +42,17 @@ Access the live deployed application in your web browser:
 - 📧 **Automated Email Notifications**: Built-in EmailJS preview modals and client status dispatches.
 - 📱 **Fully Responsive Design**: Optimized for Desktop (4K/1080p), Tablets, and Mobile screens.
 - 🖥️ **Native Windows Desktop App**: Powered by Electron with custom title bar styling, offline assets, and low-latency performance.
+
+---
+
+## ☁️ Setting Up Supabase 10-Year Cloud Database (2-Minute Guide)
+
+1. Create a free account at **[supabase.com](https://supabase.com)** and create a new project.
+2. In your Supabase project dashboard, open the **SQL Editor** &rarr; **New Query**.
+3. In the EST Project Tracker app, click the **Cloud DB Status Pill** (top header or sidebar) &rarr; **SQL Schema & Setup Guide** &rarr; click **"Copy SQL Schema Script"**.
+4. Paste the SQL into Supabase and click **Run**.
+5. Copy your **Project URL** and **anon public API Key** (from Supabase *Project Settings &rarr; API*) into the **Cloud Credentials** tab in the app and click **Save & Connect**.
+6. Click **1-Click Cloud Migration** to upload all existing local data to the cloud!
 
 ---
 

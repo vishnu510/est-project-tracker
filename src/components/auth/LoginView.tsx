@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import { ESTLogo } from '../common/ESTLogo';
+import { CloudStatusBadge } from '../database/CloudStatusBadge';
+import { CloudDatabaseModal } from '../database/CloudDatabaseModal';
 import { 
   Lock, 
   Mail, 
@@ -8,11 +10,12 @@ import {
   EyeOff, 
   ArrowRight,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Database
 } from 'lucide-react';
 
 export const LoginView: React.FC = () => {
-  const { login } = useProject();
+  const { login, cloudStatus, isCloudDbModalOpen, setIsCloudDbModalOpen } = useProject();
   
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +23,7 @@ export const LoginView: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
     if (!identifier.trim() || !password.trim()) {
@@ -29,13 +32,16 @@ export const LoginView: React.FC = () => {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      const res = login(identifier, password);
-      setIsSubmitting(false);
+    try {
+      const res = await login(identifier, password);
       if (!res.success) {
         setErrorMsg(res.message);
       }
-    }, 400);
+    } catch (err) {
+      setErrorMsg('Authentication request failed. Please check credentials or network.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -49,6 +55,19 @@ export const LoginView: React.FC = () => {
       position: 'relative',
       overflow: 'hidden'
     }}>
+      {/* Top Bar Cloud Status Pill */}
+      <div style={{
+        position: 'absolute',
+        top: 20,
+        right: 24,
+        zIndex: 20,
+      }}>
+        <CloudStatusBadge
+          status={cloudStatus}
+          onClick={() => setIsCloudDbModalOpen(true)}
+        />
+      </div>
+
       {/* Background ambient lighting */}
       <div style={{
         position: 'absolute',
@@ -231,7 +250,7 @@ export const LoginView: React.FC = () => {
               }}
             >
               {isSubmitting ? (
-                <span>Authenticating...</span>
+                <span>Authenticating with Cloud DB...</span>
               ) : (
                 <>
                   <span>Sign In to Workspace</span>
@@ -241,9 +260,34 @@ export const LoginView: React.FC = () => {
             </button>
           </form>
 
+          {/* Cloud Database Setup Link on Login Card */}
+          <div style={{
+            marginTop: '20px',
+            textAlign: 'center',
+          }}>
+            <button
+              type="button"
+              onClick={() => setIsCloudDbModalOpen(true)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#60a5fa',
+                fontSize: '0.78rem',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                textDecoration: 'none',
+              }}
+            >
+              <Database size={13} />
+              <span>Configure 10-Year Cloud Database & Sync</span>
+            </button>
+          </div>
+
           {/* Info footer */}
           <div style={{
-            marginTop: '24px',
+            marginTop: '18px',
             paddingTop: '16px',
             borderTop: '1px solid var(--border-subtle)',
             display: 'flex',
@@ -254,10 +298,16 @@ export const LoginView: React.FC = () => {
             color: 'var(--text-muted)',
           }}>
             <CheckCircle2 size={14} color="#10b981" />
-            <span>Strict project isolation: Authorized personnel only.</span>
+            <span>10-Year Cloud Data Retention & Realtime Multi-Device Sync.</span>
           </div>
         </div>
       </div>
+
+      {/* Cloud Database Manager Modal */}
+      <CloudDatabaseModal
+        isOpen={isCloudDbModalOpen}
+        onClose={() => setIsCloudDbModalOpen(false)}
+      />
     </div>
   );
 };
