@@ -1,5 +1,4 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import * as XLSX from 'xlsx';
 import type { 
   Project, 
   User, 
@@ -848,11 +847,12 @@ export const exportSqlDump = (data: {
 };
 
 // 3. Multi-Sheet Master Excel Workbook (.xlsx)
-export const exportMultiSheetExcel = (data: {
+export const exportMultiSheetExcel = async (data: {
   projects: Project[];
   users: User[];
   activityLogs: ActivityLog[];
 }) => {
+  const XLSX = await import('xlsx');
   const wb = XLSX.utils.book_new();
 
   // Sheet 1: Projects

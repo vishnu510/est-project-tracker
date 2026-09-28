@@ -1,6 +1,12 @@
-import * as XLSX from 'xlsx';
 import type { Project } from '../types';
 import { getCurrencySymbol } from '../types';
+
+/**
+ * Lazy load XLSX library on demand to prevent heavy initial bundle
+ */
+const getXLSX = async () => {
+  return await import('xlsx');
+};
 
 /**
  * Clean & Format Helper for CSV
@@ -66,9 +72,10 @@ export const exportProjectsToCSV = (projects: Project[], filenamePrefix = 'EST_B
 };
 
 /**
- * 2. Export Projects List to Excel (.xlsx)
+ * 2. Export Projects List to Excel (.xlsx) (Lazy Dynamic Import)
  */
-export const exportProjectsToExcel = (projects: Project[], filenamePrefix = 'EST_Brand_Services_Projects') => {
+export const exportProjectsToExcel = async (projects: Project[], filenamePrefix = 'EST_Brand_Services_Projects') => {
+  const XLSX = await getXLSX();
   const data = projects.map((p) => {
     const dels = p.deliverables || [];
     const completed = dels.filter((d) => d.status === 'Completed').length;
@@ -138,9 +145,9 @@ export const exportProjectExpensesToCSV = (project: Project) => {
     'Assignee',
     'Currency',
     `Cost (${symbol})`,
-    `Tax (${symbol})`,
+    `Tax 18% (${symbol})`,
     `Total (${symbol})`,
-    'Notes / Remarks'
+    'Notes'
   ];
 
   const rows = dels.map((d) => {
@@ -161,13 +168,12 @@ export const exportProjectExpensesToCSV = (project: Project) => {
     ];
   });
 
-  // Calculate Grand Totals
+  // Grand Total Calculation
   const totalCost = dels.reduce((acc, d) => acc + (d.cost !== undefined ? d.cost : (d.value || 0)), 0);
   const totalTax = dels.reduce((acc, d) => acc + (d.tax !== undefined ? d.tax : Math.round((d.cost !== undefined ? d.cost : (d.value || 0)) * 0.18)), 0);
   const grandTotal = dels.reduce((acc, d) => acc + (d.total !== undefined ? d.total : ((d.cost !== undefined ? d.cost : (d.value || 0)) + Math.round((d.cost !== undefined ? d.cost : (d.value || 0)) * 0.18))), 0);
 
-  // Add Grand Total row
-  rows.push([
+  const grandTotalRow = [
     escapeCSV('GRAND TOTAL'),
     escapeCSV(`${dels.length} Items`),
     escapeCSV('All Assignees'),
@@ -175,18 +181,13 @@ export const exportProjectExpensesToCSV = (project: Project) => {
     totalCost,
     totalTax,
     grandTotal,
-    escapeCSV(`Final Audited Total in ${expenseCurr}`)
-  ]);
+    escapeCSV(`Total Audited in ${expenseCurr}`)
+  ];
 
   const csvContent = '\uFEFF' + [
-    `"PROJECT: ${project.id} — ${project.name}"`,
-    `"CLIENT: ${project.clientCompany} (${project.clientName})"`,
-    `"LEAD ADMIN: ${project.leadManager}"`,
-    `"EXPENSE CURRENCY: ${expenseCurr} (${symbol})"`,
-    `"STATUS: ${project.status}"`,
-    '',
     headers.join(','),
-    ...rows.map((r) => r.join(','))
+    ...rows.map((r) => r.join(',')),
+    grandTotalRow.join(',')
   ].join('\r\n');
 
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -194,9 +195,10 @@ export const exportProjectExpensesToCSV = (project: Project) => {
 };
 
 /**
- * 4. Export Project Expenses & Deliverable Breakdown to Excel (.xlsx)
+ * 4. Export Project Expenses & Deliverable Breakdown to Excel (.xlsx) (Lazy Dynamic Import)
  */
-export const exportProjectExpensesToExcel = (project: Project) => {
+export const exportProjectExpensesToExcel = async (project: Project) => {
+  const XLSX = await getXLSX();
   const dels = project.deliverables || [];
   const uniqueDelCurrencies = Array.from(new Set(dels.map((d) => d.currency || project.currency || 'INR')));
   const expenseCurr = uniqueDelCurrencies.length === 1 ? uniqueDelCurrencies[0] : (project.currency || 'INR');
@@ -260,15 +262,15 @@ export const exportProjectExpensesToExcel = (project: Project) => {
 /**
  * 5. Export Both Excel + CSV
  */
-export const exportProjectsBoth = (projects: Project[]) => {
-  exportProjectsToExcel(projects);
+export const exportProjectsBoth = async (projects: Project[]) => {
+  await exportProjectsToExcel(projects);
   setTimeout(() => {
     exportProjectsToCSV(projects);
   }, 300);
 };
 
-export const exportProjectExpensesBoth = (project: Project) => {
-  exportProjectExpensesToExcel(project);
+export const exportProjectExpensesBoth = async (project: Project) => {
+  await exportProjectExpensesToExcel(project);
   setTimeout(() => {
     exportProjectExpensesToCSV(project);
   }, 300);

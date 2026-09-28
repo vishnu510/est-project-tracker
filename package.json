@@ -16,44 +16,6 @@
     "electron:start": "electron .",
     "build:win": "npm run build && electron-builder --win --x64"
   },
-  "build": {
-    "appId": "com.estbrandservices.projecttracker",
-    "productName": "EST Brand Services",
-    "copyright": "Copyright © 2026 EST Brand Services",
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "dist/**/*",
-      "electron/**/*",
-      "public/**/*"
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "public/est-logo.png"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "EST Project Tracker",
-      "uninstallDisplayName": "EST Brand Services Project Tracker"
-    }
-  },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@supabase/supabase-js": "^2.117.2",

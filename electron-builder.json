@@ -1,0 +1,42 @@
+{
+  "appId": "com.estbrandservices.projecttracker",
+  "productName": "EST Brand Services",
+  "copyright": "Copyright © 2026 EST Brand Services",
+  "compression": "normal",
+  "asar": true,
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "public/est-logo.png",
+    "!dist/**/*.map"
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "public/est-logo.png"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "EST Project Tracker",
+    "uninstallDisplayName": "EST Brand Services Project Tracker",
+    "differentialPackage": false
+  }
+}
