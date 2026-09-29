@@ -265,84 +265,9 @@ export const LoginView: React.FC = () => {
             </button>
           </form>
 
-          {/* Quick Demo Credentials Fill Pills */}
-          <div style={{
-            marginTop: '16px',
-            padding: '10px 12px',
-            background: 'rgba(15, 23, 42, 0.6)',
-            borderRadius: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 6,
-          }}>
-            <div style={{ fontSize: '0.72rem', color: '#94a3b8', fontWeight: 600, display: 'flex', justifyContent: 'space-between' }}>
-              <span>Quick Login Presets (Offline Demo):</span>
-            </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                onClick={() => {
-                  setIdentifier('vishnu@estbrandservices.com');
-                  setPassword('Admin#4625');
-                }}
-                style={{
-                  background: 'rgba(59, 130, 246, 0.15)',
-                  border: '1px solid rgba(59, 130, 246, 0.3)',
-                  color: '#93c5fd',
-                  borderRadius: '6px',
-                  padding: '3px 8px',
-                  fontSize: '0.72rem',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                }}
-              >
-                Admin (Vishnu)
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIdentifier('superadmin@estbrandservices.com');
-                  setPassword('EST#Super2024');
-                }}
-                style={{
-                  background: 'rgba(168, 85, 247, 0.15)',
-                  border: '1px solid rgba(168, 85, 247, 0.3)',
-                  color: '#d8b4fe',
-                  borderRadius: '6px',
-                  padding: '3px 8px',
-                  fontSize: '0.72rem',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                }}
-              >
-                Super Admin
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIdentifier('rohan.v@estbrandservices.com');
-                  setPassword('Member@123');
-                }}
-                style={{
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
-                  color: '#6ee7b7',
-                  borderRadius: '6px',
-                  padding: '3px 8px',
-                  fontSize: '0.72rem',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                }}
-              >
-                Team Member
-              </button>
-            </div>
-          </div>
-
           {/* Cloud Database Setup Link on Login Card */}
           <div style={{
-            marginTop: '16px',
+            marginTop: '20px',
             textAlign: 'center',
           }}>
             <button
