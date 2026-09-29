@@ -761,7 +761,7 @@ export const exportJsonArchive = (data: {
   const archive = {
     metadata: {
       application: 'EST Brand Services - Enterprise Project Tracker',
-      version: '2.0.0',
+      version: '2.1.1',
       exportedAt: new Date().toISOString(),
       retentionGuarantee: '10-Year Enterprise Archive',
       summary: {

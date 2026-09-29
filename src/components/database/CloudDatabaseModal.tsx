@@ -847,7 +847,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
         }}>
           <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
             <ShieldCheck size={14} color="#10b981" />
-            <span>EST Enterprise Cloud Engine &bull; Version 2.0.0</span>
+            <span>EST Enterprise Cloud Engine &bull; Version 2.1.1 (Live Cloud Connected)</span>
           </div>
 
           <button
