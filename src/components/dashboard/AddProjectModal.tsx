@@ -28,7 +28,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
   });
   const [budget, setBudget] = useState('500000');
   const [currency, setCurrency] = useState<CurrencyCode>('INR');
-  const [leadManager, setLeadManager] = useState(() => currentUser?.name || 'Executive Super Admin');
+  const [leadManager, setLeadManager] = useState(() => currentUser?.name || 'EST Super Admin');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<'High' | 'Medium' | 'Low'>('High');
   const [health] = useState<'On Track' | 'At Risk' | 'Delayed'>('On Track');

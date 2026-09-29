@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import { CreateAdminModal } from './CreateAdminModal';
+import { ChangePasswordModal } from './ChangePasswordModal';
 import { UserAvatar } from '../common/UserAvatar';
+import type { User } from '../../types';
 import { 
   ShieldCheck, 
   UserPlus, 
@@ -30,6 +32,8 @@ export const UserManagementView: React.FC = () => {
   } = useProject();
 
   const [isCreateAdminOpen, setIsCreateAdminOpen] = useState(false);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [selectedUserForPassword, setSelectedUserForPassword] = useState<User | null>(null);
   const [revealedPasswords, setRevealedPasswords] = useState<{ [id: string]: boolean }>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -124,15 +128,40 @@ export const UserManagementView: React.FC = () => {
           </p>
         </div>
 
-        <button 
-          className="btn-primary" 
-          onClick={() => setIsCreateAdminOpen(true)}
-          id="create-admin-btn"
-          style={{ padding: '9px 18px' }}
-        >
-          <UserPlus size={16} />
-          <span>+ Create Project Admin</span>
-        </button>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <button 
+            className="btn-secondary" 
+            onClick={() => {
+              const superAdmin = users.find(u => u.role === 'Super Admin') || currentUser;
+              setSelectedUserForPassword(superAdmin || null);
+              setIsChangePasswordOpen(true);
+            }}
+            id="change-superadmin-password-btn"
+            style={{ 
+              padding: '9px 16px',
+              background: 'rgba(245, 158, 11, 0.12)',
+              borderColor: 'rgba(245, 158, 11, 0.35)',
+              color: '#fbbf24',
+              fontWeight: 600,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+            }}
+          >
+            <KeyRound size={15} />
+            <span>Change Super Admin Password</span>
+          </button>
+
+          <button 
+            className="btn-primary" 
+            onClick={() => setIsCreateAdminOpen(true)}
+            id="create-admin-btn"
+            style={{ padding: '9px 18px' }}
+          >
+            <UserPlus size={16} />
+            <span>+ Create Project Admin</span>
+          </button>
+        </div>
       </div>
 
       {/* Overview Stat Cards */}
@@ -418,8 +447,19 @@ export const UserManagementView: React.FC = () => {
                       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                         <button
                           className="btn-ghost"
+                          onClick={() => {
+                            setSelectedUserForPassword(u);
+                            setIsChangePasswordOpen(true);
+                          }}
+                          title={`Change custom password for ${u.name}`}
+                          style={{ padding: '4px 6px', color: '#60a5fa' }}
+                        >
+                          <Lock size={14} />
+                        </button>
+                        <button
+                          className="btn-ghost"
                           onClick={() => handleResetPassword(u.id, u.name)}
-                          title="Generate & Reset Password"
+                          title="Generate & Quick Reset Password"
                           style={{ padding: '4px 6px', color: '#fbbf24' }}
                         >
                           <KeyRound size={14} />
@@ -448,6 +488,16 @@ export const UserManagementView: React.FC = () => {
       <CreateAdminModal
         isOpen={isCreateAdminOpen}
         onClose={() => setIsCreateAdminOpen(false)}
+      />
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => {
+          setIsChangePasswordOpen(false);
+          setSelectedUserForPassword(null);
+        }}
+        targetUser={selectedUserForPassword}
       />
     </div>
   );

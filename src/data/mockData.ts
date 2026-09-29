@@ -3,7 +3,7 @@ import type { Project, User, ActivityLog } from '../types';
 export const INITIAL_USERS: User[] = [
   {
     id: 'usr-super',
-    name: 'Executive Super Admin',
+    name: 'EST Super Admin',
     email: 'superadmin@estbrandservices.com',
     username: 'superadmin',
     password: 'EST#Super2024',
@@ -29,7 +29,7 @@ export const INITIAL_USERS: User[] = [
     lastActive: 'Just now',
     phone: '+1 (555) 482-9102',
     assignedProjectIds: ['EST2024-1', 'EST2024-5'],
-    createdBy: 'Executive Super Admin',
+    createdBy: 'EST Super Admin',
     createdAt: '2024-01-10T10:00:00Z',
   },
   {
@@ -45,7 +45,7 @@ export const INITIAL_USERS: User[] = [
     lastActive: '25 mins ago',
     phone: '+1 (555) 902-1845',
     assignedProjectIds: ['EST2024-2', 'EST2024-3'],
-    createdBy: 'Executive Super Admin',
+    createdBy: 'EST Super Admin',
     createdAt: '2024-01-15T14:30:00Z',
   },
   {
@@ -61,7 +61,7 @@ export const INITIAL_USERS: User[] = [
     lastActive: '45 mins ago',
     phone: '+1 (555) 391-7721',
     assignedProjectIds: ['EST2024-4', 'EST2024-6'],
-    createdBy: 'Executive Super Admin',
+    createdBy: 'EST Super Admin',
     createdAt: '2024-01-20T09:15:00Z',
   },
   {

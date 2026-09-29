@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import { CloudStatusBadge } from '../database/CloudStatusBadge';
+import { ChangePasswordModal } from '../users/ChangePasswordModal';
 import { 
   Search, 
   Plus, 
   ShieldCheck,
   Briefcase,
-  Download
+  Download,
+  KeyRound
 } from 'lucide-react';
 
 interface TopHeaderProps {
@@ -14,6 +16,7 @@ interface TopHeaderProps {
 }
 
 export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const { 
     currentView, 
     searchQuery, 
@@ -137,21 +140,35 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           <span>.EXE</span>
         </a>
 
-        {/* Persona Pill */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          background: isSuperAdmin ? 'rgba(245, 158, 11, 0.15)' : 'rgba(59, 130, 246, 0.15)',
-          border: `1px solid ${isSuperAdmin ? 'rgba(245, 158, 11, 0.35)' : 'rgba(59, 130, 246, 0.35)'}`,
-          padding: '6px 12px',
-          borderRadius: 'var(--radius-full)',
-          fontSize: '0.8rem',
-          color: isSuperAdmin ? '#fbbf24' : '#60a5fa'
-        }}>
+        {/* Persona Pill with Change Password Trigger */}
+        <button
+          onClick={() => setIsPasswordModalOpen(true)}
+          title="Click to Change Account Password"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            background: isSuperAdmin ? 'rgba(245, 158, 11, 0.15)' : 'rgba(59, 130, 246, 0.15)',
+            border: `1px solid ${isSuperAdmin ? 'rgba(245, 158, 11, 0.35)' : 'rgba(59, 130, 246, 0.35)'}`,
+            padding: '6px 12px',
+            borderRadius: 'var(--radius-full)',
+            fontSize: '0.8rem',
+            color: isSuperAdmin ? '#fbbf24' : '#60a5fa',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'none';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+        >
           {isSuperAdmin ? <ShieldCheck size={14} color="#fbbf24" /> : <Briefcase size={14} color="#60a5fa" />}
           <span style={{ fontWeight: 700 }}>
-            {currentUser?.name || 'Super Admin'}
+            {currentUser?.name || 'EST Super Admin'}
           </span>
           <span style={{ 
             fontSize: '0.7rem', 
@@ -162,8 +179,16 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           }}>
             {currentUser?.role || 'Super Admin'}
           </span>
-        </div>
+          <KeyRound size={12} style={{ opacity: 0.8 }} />
+        </button>
       </div>
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        targetUser={currentUser}
+      />
     </header>
   );
 };

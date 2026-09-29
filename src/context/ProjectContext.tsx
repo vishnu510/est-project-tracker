@@ -552,7 +552,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
       lastActive: 'Never (Newly Created)',
       phone: data.phone || '+1 (555) 000-0000',
       assignedProjectIds: data.assignedProjectIds || [],
-      createdBy: currentUser?.name || 'Executive Super Admin',
+      createdBy: currentUser?.name || 'EST Super Admin',
       createdAt: new Date().toISOString(),
     };
 
@@ -639,7 +639,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
     const assignedUser = users.find(
       (u) => u.name.toLowerCase() === (projectData.leadManager || '').toLowerCase()
     );
-    const leadMgr = projectData.leadManager || currentUser?.name || 'Executive Super Admin';
+    const leadMgr = projectData.leadManager || currentUser?.name || 'EST Super Admin';
     const leadAvatar = projectData.leadAvatar || assignedUser?.avatar || currentUser?.avatar;
 
     const newProject: Project = {
