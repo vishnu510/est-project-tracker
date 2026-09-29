@@ -144,8 +144,8 @@ export const LoginView: React.FC = () => {
               </div>
               {errorMsg.includes('password') && (
                 <div style={{ fontSize: '0.78rem', color: '#94a3b8', paddingLeft: 27, lineHeight: 1.4 }}>
-                  Default offline password is <code style={{ color: '#60a5fa', background: 'rgba(59,130,246,0.15)', padding: '1px 5px', borderRadius: 4 }}>Admin@123</code>.
-                  If you created a new password on the Desktop App, connect your <button type="button" onClick={() => setIsCloudDbModalOpen(true)} style={{ color: '#38bdf8', background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer', fontSize: '0.78rem' }}>Cloud Database</button> to sync it.
+                  Default offline password is <code style={{ color: '#60a5fa', background: 'rgba(59,130,246,0.15)', padding: '1px 5px', borderRadius: 4 }}>Admin#4625</code> (or <code style={{ color: '#94a3b8' }}>Admin@123</code>).
+                  If you created a new password on another device, connect your <button type="button" onClick={() => setIsCloudDbModalOpen(true)} style={{ color: '#38bdf8', background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer', fontSize: '0.78rem' }}>Cloud Database</button> to sync it.
                 </div>
               )}
             </div>
@@ -284,7 +284,7 @@ export const LoginView: React.FC = () => {
                 type="button"
                 onClick={() => {
                   setIdentifier('vishnu@estbrandservices.com');
-                  setPassword('Admin@123');
+                  setPassword('Admin#4625');
                 }}
                 style={{
                   background: 'rgba(59, 130, 246, 0.15)',

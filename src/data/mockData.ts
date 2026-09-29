@@ -21,7 +21,7 @@ export const INITIAL_USERS: User[] = [
     name: 'Vishnu Pal Dubey',
     email: 'vishnu@estbrandservices.com',
     username: 'vishnu',
-    password: 'Admin@123',
+    password: 'Admin#4625',
     role: 'Admin',
     department: 'Digital Marketing & Growth',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
