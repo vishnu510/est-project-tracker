@@ -1,73 +1,64 @@
 import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
+import type { AppUser } from '../../types';
+import { UserAvatar } from '../common/UserAvatar';
 import { CreateAdminModal } from './CreateAdminModal';
 import { ChangePasswordModal } from './ChangePasswordModal';
-import { UserAvatar } from '../common/UserAvatar';
-import type { User } from '../../types';
 import { 
-  ShieldCheck, 
   UserPlus, 
-  Trash2, 
+  ShieldCheck, 
   KeyRound, 
+  Trash2, 
   Eye, 
   EyeOff, 
   Copy, 
   Check, 
-  Briefcase, 
-  Building2, 
-  Lock, 
-  ArrowRight
+  Briefcase,
+  Building2,
+  Lock,
+  ShieldAlert
 } from 'lucide-react';
-
 
 export const UserManagementView: React.FC = () => {
   const { 
     users, 
-    projects,
     currentUser, 
-    setCurrentView,
-    deleteUser, 
+    projects, 
     updateUser, 
+    deleteUser, 
     showToast 
   } = useProject();
 
+  const isSuperAdmin = currentUser?.role === 'Super Admin';
+
   const [isCreateAdminOpen, setIsCreateAdminOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
-  const [selectedUserForPassword, setSelectedUserForPassword] = useState<User | null>(null);
-  const [revealedPasswords, setRevealedPasswords] = useState<{ [id: string]: boolean }>({});
+  const [selectedUserForPassword, setSelectedUserForPassword] = useState<AppUser | null>(null);
+
+  const [revealedPasswords, setRevealedPasswords] = useState<{ [key: string]: boolean }>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // If non-Super Admin tries to access
-  if (currentUser?.role !== 'Super Admin') {
+  if (!isSuperAdmin) {
     return (
       <div className="card" style={{ textAlign: 'center', padding: '60px 20px', maxWidth: '600px', margin: '40px auto' }}>
         <div style={{
           width: 56,
           height: 56,
           borderRadius: '50%',
-          background: 'rgba(239, 68, 68, 0.15)',
-          color: '#ef4444',
+          background: 'rgba(239, 68, 68, 0.1)',
+          color: '#dc2626',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          margin: '0 auto 16px auto',
+          margin: '0 auto 16px',
         }}>
-          <Lock size={28} />
+          <ShieldAlert size={28} />
         </div>
-        <h2 style={{ color: '#fff', fontSize: '1.4rem' }}>Super Admin Authority Required</h2>
-        <p style={{ color: 'var(--text-secondary)', marginTop: 8, fontSize: '0.92rem' }}>
-          User creation and credential administration is reserved exclusively for the <strong>Super Admin</strong>.
-          As a Project Admin, you have full authority to create and manage your assigned projects.
+        <h2 style={{ color: 'var(--brand-navy)', fontSize: '1.4rem' }}>Super Admin Authority Required</h2>
+        <p style={{ color: 'var(--text-secondary)', marginTop: 8, fontSize: '0.9rem', lineHeight: 1.5 }}>
+          Admin accounts and global credential vaults are restricted to EST Brand Services Super Admins. 
+          Your current account does not possess provisioning permissions.
         </p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 24 }}>
-          <button 
-            className="btn-primary" 
-            onClick={() => setCurrentView('dashboard')}
-          >
-            <span>Back to My Dashboard</span>
-            <ArrowRight size={15} />
-          </button>
-        </div>
       </div>
     );
   }
@@ -76,8 +67,9 @@ export const UserManagementView: React.FC = () => {
     setRevealedPasswords((prev) => ({ ...prev, [userId]: !prev[userId] }));
   };
 
-  const copyUserCredentials = (u: (typeof users)[0]) => {
-    const text = `EST Brand Services Login Credentials\nName: ${u.name}\nRole: ${u.role}\nEmail: ${u.email}\nUsername: ${u.username || u.email.split('@')[0]}\nPassword: ${u.password || 'Admin@123'}\nDepartment: ${u.department}\nURL: ${window.location.origin}`;
+  const copyUserCredentials = (u: AppUser) => {
+    const password = u.password || (u.role === 'Super Admin' ? 'EST#Super2024' : 'Admin@123');
+    const text = `EST Brand Services Credentials\nName: ${u.name}\nRole: ${u.role}\nEmail: ${u.email}\nUsername: ${u.username || u.email.split('@')[0]}\nPassword: ${password}\nPortal URL: ${window.location.origin}`;
     navigator.clipboard.writeText(text);
     setCopiedId(u.id);
     showToast('Credentials Copied', `Copied login details for ${u.name}`, 'success');
@@ -108,17 +100,17 @@ export const UserManagementView: React.FC = () => {
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.85rem', fontWeight: 800, color: '#fff' }}>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.85rem', fontWeight: 800, color: 'var(--brand-navy)' }}>
               Admin Accounts & Credential Vault
             </h1>
             <span style={{ 
-              background: 'rgba(245, 158, 11, 0.15)', 
-              color: '#fbbf24', 
+              background: 'rgba(22, 46, 74, 0.08)', 
+              color: 'var(--brand-navy)', 
               fontSize: '0.74rem', 
               fontWeight: 700, 
               padding: '3px 10px', 
               borderRadius: '999px',
-              border: '1px solid rgba(245, 158, 11, 0.3)'
+              border: '1px solid rgba(22, 46, 74, 0.2)'
             }}>
               SUPER ADMIN GOVERNANCE
             </span>
@@ -139,9 +131,9 @@ export const UserManagementView: React.FC = () => {
             id="change-superadmin-password-btn"
             style={{ 
               padding: '9px 16px',
-              background: 'rgba(245, 158, 11, 0.12)',
-              borderColor: 'rgba(245, 158, 11, 0.35)',
-              color: '#fbbf24',
+              background: 'rgba(22, 46, 74, 0.06)',
+              borderColor: 'rgba(22, 46, 74, 0.2)',
+              color: 'var(--brand-navy)',
               fontWeight: 600,
               display: 'inline-flex',
               alignItems: 'center',
@@ -166,14 +158,14 @@ export const UserManagementView: React.FC = () => {
 
       {/* Overview Stat Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '28px' }}>
-        <div className="card" style={{ padding: '18px 20px', border: '1px solid rgba(245, 158, 11, 0.25)' }}>
+        <div className="card" style={{ padding: '18px 20px', border: '1px solid rgba(22, 46, 74, 0.15)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ 
               width: 42, 
               height: 42, 
               borderRadius: '10px', 
-              background: 'rgba(245, 158, 11, 0.15)', 
-              color: '#fbbf24',
+              background: 'rgba(22, 46, 74, 0.08)', 
+              color: 'var(--brand-navy)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -184,21 +176,21 @@ export const UserManagementView: React.FC = () => {
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
                 Super Admin Governance
               </div>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginTop: 2 }}>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--brand-navy)', marginTop: 2 }}>
                 {superAdminCount} Master Lead
               </div>
             </div>
           </div>
         </div>
 
-        <div className="card" style={{ padding: '18px 20px', border: '1px solid rgba(59, 130, 246, 0.25)' }}>
+        <div className="card" style={{ padding: '18px 20px', border: '1px solid rgba(58, 156, 185, 0.25)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ 
               width: 42, 
               height: 42, 
               borderRadius: '10px', 
-              background: 'rgba(59, 130, 246, 0.15)', 
-              color: '#60a5fa',
+              background: 'rgba(58, 156, 185, 0.12)', 
+              color: 'var(--brand-cerulean)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -209,21 +201,21 @@ export const UserManagementView: React.FC = () => {
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
                 Active Project Admins
               </div>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginTop: 2 }}>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--brand-cerulean)', marginTop: 2 }}>
                 {adminUsers.length} Domain Leads
               </div>
             </div>
           </div>
         </div>
 
-        <div className="card" style={{ padding: '18px 20px', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
+        <div className="card" style={{ padding: '18px 20px', border: '1px solid rgba(5, 150, 105, 0.2)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ 
               width: 42, 
               height: 42, 
               borderRadius: '10px', 
-              background: 'rgba(16, 185, 129, 0.15)', 
-              color: '#34d399',
+              background: 'rgba(5, 150, 105, 0.1)', 
+              color: '#059669',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -234,7 +226,7 @@ export const UserManagementView: React.FC = () => {
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
                 Company Projects
               </div>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#34d399', marginTop: 2 }}>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#059669', marginTop: 2 }}>
                 {projects.length} Workspaces
               </div>
             </div>
@@ -251,10 +243,11 @@ export const UserManagementView: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: 12
+          gap: 12,
+          background: '#ffffff'
         }}>
           <div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: '#fff' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: 'var(--brand-navy)' }}>
               Personnel Directory & Credential Registry
             </div>
             <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 2 }}>
@@ -305,7 +298,7 @@ export const UserManagementView: React.FC = () => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                         <UserAvatar name={u.name} avatarUrl={u.avatar} size={34} fontSize="0.82rem" />
                         <div>
-                          <div style={{ fontWeight: 600, color: '#fff', fontSize: '0.88rem' }}>
+                          <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.88rem' }}>
                             {u.name}
                           </div>
                           <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
@@ -326,12 +319,12 @@ export const UserManagementView: React.FC = () => {
                         padding: '3px 10px',
                         borderRadius: '999px',
                         background: u.role === 'Super Admin' 
-                          ? 'rgba(245, 158, 11, 0.15)' 
-                          : (u.role === 'Admin' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(139, 92, 246, 0.15)'),
-                        color: u.role === 'Super Admin' ? '#fbbf24' : (u.role === 'Admin' ? '#60a5fa' : '#c084fc'),
+                          ? 'rgba(22, 46, 74, 0.08)' 
+                          : (u.role === 'Admin' ? 'rgba(58, 156, 185, 0.12)' : 'rgba(124, 58, 237, 0.08)'),
+                        color: u.role === 'Super Admin' ? 'var(--brand-navy)' : (u.role === 'Admin' ? 'var(--brand-cerulean)' : '#7c3aed'),
                         border: u.role === 'Super Admin' 
-                          ? '1px solid rgba(245, 158, 11, 0.3)' 
-                          : (u.role === 'Admin' ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid rgba(139, 92, 246, 0.3)')
+                          ? '1px solid rgba(22, 46, 74, 0.2)' 
+                          : (u.role === 'Admin' ? '1px solid rgba(58, 156, 185, 0.25)' : '1px solid rgba(124, 58, 237, 0.2)')
                       }}>
                         {u.role === 'Super Admin' && '👑 '}
                         {u.role}
@@ -341,7 +334,7 @@ export const UserManagementView: React.FC = () => {
                     {/* Email / Username */}
                     <td>
                       <div>
-                        <span style={{ color: 'var(--text-primary)', fontSize: '0.84rem', fontFamily: 'var(--font-mono)' }}>
+                        <span style={{ color: 'var(--text-primary)', fontSize: '0.84rem', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                           {u.email}
                         </span>
                         {u.username && (
@@ -358,8 +351,9 @@ export const UserManagementView: React.FC = () => {
                         <span style={{ 
                           fontFamily: 'var(--font-mono)', 
                           fontSize: '0.85rem', 
-                          color: isRevealed ? '#34d399' : '#94a3b8',
-                          background: 'rgba(0,0,0,0.3)',
+                          fontWeight: 700,
+                          color: isRevealed ? '#059669' : 'var(--text-secondary)',
+                          background: '#f1f5f9',
                           padding: '3px 8px',
                           borderRadius: '4px',
                           border: '1px solid var(--border-subtle)',
@@ -379,7 +373,7 @@ export const UserManagementView: React.FC = () => {
                           className="btn-ghost"
                           onClick={() => copyUserCredentials(u)}
                           title="Copy full credentials"
-                          style={{ padding: '3px 5px', color: copiedId === u.id ? '#10b981' : '#60a5fa' }}
+                          style={{ padding: '3px 5px', color: copiedId === u.id ? '#059669' : 'var(--brand-cerulean)' }}
                         >
                           {copiedId === u.id ? <Check size={14} /> : <Copy size={14} />}
                         </button>
@@ -392,7 +386,7 @@ export const UserManagementView: React.FC = () => {
                         <span style={{ 
                           fontSize: '0.76rem', 
                           fontWeight: 700, 
-                          color: userProjects.length > 0 ? '#34d399' : 'var(--text-muted)' 
+                          color: userProjects.length > 0 ? '#059669' : 'var(--text-muted)' 
                         }}>
                           {u.role === 'Super Admin' ? 'All (Company-wide)' : `${userProjects.length} Projects`}
                         </span>
@@ -404,8 +398,9 @@ export const UserManagementView: React.FC = () => {
                                 fontFamily: 'var(--font-mono)', 
                                 padding: '1px 5px', 
                                 borderRadius: '3px',
-                                background: 'rgba(59, 130, 246, 0.15)',
-                                color: '#60a5fa' 
+                                background: 'rgba(22, 46, 74, 0.08)',
+                                color: 'var(--brand-navy)',
+                                fontWeight: 600
                               }}>
                                 {p.id}
                               </span>
@@ -426,19 +421,19 @@ export const UserManagementView: React.FC = () => {
                         value={u.status}
                         onChange={(e) => updateUser(u.id, { status: e.target.value as any })}
                         style={{
-                          background: u.status === 'Active' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                          color: u.status === 'Active' ? '#34d399' : '#f87171',
-                          border: `1px solid ${u.status === 'Active' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                          background: u.status === 'Active' ? 'rgba(5, 150, 105, 0.08)' : 'rgba(220, 38, 38, 0.08)',
+                          color: u.status === 'Active' ? '#059669' : '#dc2626',
+                          border: `1px solid ${u.status === 'Active' ? 'rgba(5, 150, 105, 0.25)' : 'rgba(220, 38, 38, 0.25)'}`,
                           borderRadius: '999px',
                           padding: '3px 8px',
                           fontSize: '0.75rem',
-                          fontWeight: 600,
+                          fontWeight: 700,
                           cursor: 'pointer',
                           outline: 'none',
                         }}
                       >
-                        <option value="Active" style={{ background: '#1e293b', color: '#10b981' }}>● Active</option>
-                        <option value="Suspended" style={{ background: '#1e293b', color: '#ef4444' }}>● Suspended</option>
+                        <option value="Active" style={{ background: '#ffffff', color: '#059669' }}>● Active</option>
+                        <option value="Suspended" style={{ background: '#ffffff', color: '#dc2626' }}>● Suspended</option>
                       </select>
                     </td>
 
@@ -452,7 +447,7 @@ export const UserManagementView: React.FC = () => {
                             setIsChangePasswordOpen(true);
                           }}
                           title={`Change custom password for ${u.name}`}
-                          style={{ padding: '4px 6px', color: '#60a5fa' }}
+                          style={{ padding: '4px 6px', color: 'var(--brand-cerulean)' }}
                         >
                           <Lock size={14} />
                         </button>
@@ -460,7 +455,7 @@ export const UserManagementView: React.FC = () => {
                           className="btn-ghost"
                           onClick={() => handleResetPassword(u.id, u.name)}
                           title="Generate & Quick Reset Password"
-                          style={{ padding: '4px 6px', color: '#fbbf24' }}
+                          style={{ padding: '4px 6px', color: 'var(--brand-navy)' }}
                         >
                           <KeyRound size={14} />
                         </button>
@@ -469,7 +464,7 @@ export const UserManagementView: React.FC = () => {
                             className="btn-ghost"
                             onClick={() => deleteUser(u.id)}
                             title="Delete User Account"
-                            style={{ padding: '4px 6px', color: '#f87171' }}
+                            style={{ padding: '4px 6px', color: '#dc2626' }}
                           >
                             <Trash2 size={14} />
                           </button>

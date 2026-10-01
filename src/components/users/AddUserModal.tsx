@@ -68,16 +68,16 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
               width: 36, 
               height: 36, 
               borderRadius: '8px', 
-              background: 'rgba(59, 130, 246, 0.15)', 
+              background: 'var(--brand-coral-bg)', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              color: '#3b82f6' 
+              color: 'var(--brand-coral)' 
             }}>
               <UserPlus size={20} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: 'var(--brand-navy)' }}>
                 Invite / Add Team Member
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -172,13 +172,13 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
 
             {/* Email Dispatch Notice & Options */}
             <div style={{
-              background: 'rgba(59, 130, 246, 0.08)',
-              border: '1px solid rgba(59, 130, 246, 0.25)',
+              background: 'var(--brand-teal-bg)',
+              border: '1px solid rgba(58, 156, 185, 0.25)',
               borderRadius: 'var(--radius-md)',
               padding: '12px 14px',
               marginTop: 6
             }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '0.84rem', fontWeight: 600, color: '#93c5fd' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '0.84rem', fontWeight: 600, color: 'var(--brand-navy)' }}>
                 <input
                   type="checkbox"
                   checked={sendInviteMail}
@@ -193,7 +193,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
                   <button
                     type="button"
                     onClick={onOpenEmailSettings}
-                    style={{ background: 'transparent', border: 'none', color: '#60a5fa', cursor: 'pointer', textDecoration: 'underline' }}
+                    style={{ background: 'transparent', border: 'none', color: 'var(--brand-cerulean)', cursor: 'pointer', textDecoration: 'underline', fontWeight: 600 }}
                   >
                     Configure Mail Keys
                   </button>

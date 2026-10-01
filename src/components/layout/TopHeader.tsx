@@ -5,7 +5,7 @@ import { ChangePasswordModal } from '../users/ChangePasswordModal';
 import { 
   Search, 
   Plus, 
-  ShieldCheck,
+  ShieldCheck, 
   Briefcase,
   Download,
   KeyRound
@@ -65,7 +65,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
     <header className="app-topbar">
       {/* Current View Title */}
       <div>
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-navy)' }}>
           {info.title}
         </h2>
         <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
@@ -105,7 +105,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
           />
         </div>
 
-        {/* Add Project CTA */}
+        {/* Add Project CTA - Brand Coral Red */}
         <button 
           className="btn-primary" 
           onClick={onOpenAddProject}
@@ -129,9 +129,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
             display: 'inline-flex', 
             alignItems: 'center', 
             gap: 6,
-            background: 'rgba(59, 130, 246, 0.1)',
-            borderColor: 'rgba(59, 130, 246, 0.3)',
-            color: '#60a5fa'
+            background: 'rgba(58, 156, 185, 0.08)',
+            borderColor: 'rgba(58, 156, 185, 0.25)',
+            color: 'var(--brand-cerulean)'
           }}
           title="Download Desktop Windows App (.exe)"
           id="topbar-download-exe-btn"
@@ -148,38 +148,38 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenAddProject }) => {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            background: isSuperAdmin ? 'rgba(245, 158, 11, 0.15)' : 'rgba(59, 130, 246, 0.15)',
-            border: `1px solid ${isSuperAdmin ? 'rgba(245, 158, 11, 0.35)' : 'rgba(59, 130, 246, 0.35)'}`,
+            background: isSuperAdmin ? 'rgba(217, 119, 6, 0.08)' : 'rgba(22, 46, 74, 0.06)',
+            border: `1px solid ${isSuperAdmin ? 'rgba(217, 119, 6, 0.25)' : 'rgba(22, 46, 74, 0.15)'}`,
             padding: '6px 12px',
             borderRadius: 'var(--radius-full)',
             fontSize: '0.8rem',
-            color: isSuperAdmin ? '#fbbf24' : '#60a5fa',
+            color: isSuperAdmin ? '#d97706' : 'var(--brand-navy)',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-1px)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'none';
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          {isSuperAdmin ? <ShieldCheck size={14} color="#fbbf24" /> : <Briefcase size={14} color="#60a5fa" />}
+          {isSuperAdmin ? <ShieldCheck size={14} color="#d97706" /> : <Briefcase size={14} color="var(--brand-navy)" />}
           <span style={{ fontWeight: 700 }}>
             {currentUser?.name || 'EST Super Admin'}
           </span>
           <span style={{ 
             fontSize: '0.7rem', 
-            background: 'rgba(0,0,0,0.3)', 
+            background: isSuperAdmin ? 'rgba(217, 119, 6, 0.15)' : 'rgba(22, 46, 74, 0.1)', 
             padding: '2px 6px', 
             borderRadius: '4px',
-            color: '#fff' 
+            color: isSuperAdmin ? '#b45309' : 'var(--brand-navy)' 
           }}>
             {currentUser?.role || 'Super Admin'}
           </span>
-          <KeyRound size={12} style={{ opacity: 0.8 }} />
+          <KeyRound size={12} style={{ opacity: 0.7 }} />
         </button>
       </div>
 

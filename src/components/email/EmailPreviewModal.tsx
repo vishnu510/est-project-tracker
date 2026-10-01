@@ -44,16 +44,16 @@ export const EmailPreviewModal: React.FC<EmailPreviewModalProps> = ({
               width: 36, 
               height: 36, 
               borderRadius: '8px', 
-              background: 'rgba(16, 185, 129, 0.15)', 
+              background: 'var(--brand-coral-bg)', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              color: '#10b981' 
+              color: 'var(--brand-coral)' 
             }}>
               <Mail size={18} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: '#fff' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: 'var(--brand-navy)' }}>
                 Invitation Email Preview
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -69,7 +69,8 @@ export const EmailPreviewModal: React.FC<EmailPreviewModalProps> = ({
         <div className="modal-body" style={{ padding: '16px' }}>
           {/* Metadata bar */}
           <div style={{ 
-            background: 'rgba(0,0,0,0.3)', 
+            background: 'var(--bg-subtle)', 
+            border: '1px solid var(--border-subtle)',
             padding: '10px 14px', 
             borderRadius: 'var(--radius-sm)', 
             fontSize: '0.8rem',
@@ -82,12 +83,12 @@ export const EmailPreviewModal: React.FC<EmailPreviewModalProps> = ({
           }}>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Subject: </span>
-              <strong style={{ color: '#fff' }}>{emailLog.subject}</strong>
+              <strong style={{ color: 'var(--text-primary)' }}>{emailLog.subject}</strong>
             </div>
             <button 
               className="btn-ghost" 
               onClick={handleCopyLink}
-              style={{ fontSize: '0.74rem', padding: '3px 8px' }}
+              style={{ fontSize: '0.74rem', padding: '3px 8px', color: 'var(--brand-navy)' }}
             >
               {copied ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
               <span>{copied ? 'Link Copied' : 'Copy Direct Invite Link'}</span>
@@ -105,7 +106,7 @@ export const EmailPreviewModal: React.FC<EmailPreviewModalProps> = ({
             <iframe
               srcDoc={previewHtml}
               title="Invitation Email Render"
-              style={{ width: '100%', height: '380px', border: 'none', background: '#0f172a' }}
+              style={{ width: '100%', height: '380px', border: 'none', background: '#ffffff' }}
             />
           </div>
         </div>

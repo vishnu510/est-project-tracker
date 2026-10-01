@@ -110,16 +110,16 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
               width: 36, 
               height: 36, 
               borderRadius: '8px', 
-              background: 'rgba(59, 130, 246, 0.15)', 
+              background: 'var(--brand-coral-bg)', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              color: '#3b82f6' 
+              color: 'var(--brand-coral)' 
             }}>
               <FolderPlus size={20} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: 'var(--brand-navy)' }}>
                 Add New Project
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -144,7 +144,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
                     className="form-input"
                     value={projectId}
                     onChange={(e) => setProjectId(e.target.value)}
-                    style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#60a5fa' }}
+                    style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--brand-navy)' }}
                     required
                   />
                   <button
@@ -371,11 +371,12 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      background: 'rgba(255,255,255,0.03)',
+                      background: 'var(--bg-subtle)',
                       padding: '6px 12px',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      fontSize: '0.84rem'
+                      fontSize: '0.84rem',
+                      color: 'var(--text-primary)'
                     }}
                   >
                     <span>{item}</span>
@@ -383,7 +384,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
                       type="button"
                       onClick={() => handleRemoveDeliverableItem(index)}
                       className="btn-ghost"
-                      style={{ padding: '2px', color: '#f87171' }}
+                      style={{ padding: '2px', color: '#e04336' }}
                     >
                       <Trash2 size={13} />
                     </button>

@@ -24,9 +24,10 @@ export const ESTLogo: React.FC<ESTLogoProps> = ({
           alignItems: 'center', 
           justifyContent: 'center',
           background: '#ffffff',
-          padding: '5px 12px',
+          padding: '4px 10px',
           borderRadius: '10px',
-          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-sm)',
           transition: 'transform 0.2s ease',
         }}
       >

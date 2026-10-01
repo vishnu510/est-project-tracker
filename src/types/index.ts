@@ -114,6 +114,8 @@ export interface User {
   createdAt?: string;
 }
 
+export type AppUser = User;
+
 export interface ActivityLog {
   id: string;
   projectId?: string;

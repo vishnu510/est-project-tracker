@@ -90,16 +90,16 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
               width: 36, 
               height: 36, 
               borderRadius: '8px', 
-              background: 'rgba(16, 185, 129, 0.15)', 
+              background: 'var(--brand-teal-bg)', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              color: '#10b981' 
+              color: 'var(--brand-cerulean)' 
             }}>
               <Receipt size={20} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: 'var(--brand-navy)' }}>
                 Add Project Expense / Deliverable
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -212,13 +212,14 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
               <div className="form-group">
                 <label className="form-label">Calculated Tax Amount</label>
                 <div style={{
-                  background: 'var(--bg-input)',
+                  background: 'var(--bg-subtle)',
                   border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-md)',
                   padding: '10px 14px',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.9rem',
-                  color: '#94a3b8'
+                  color: 'var(--text-primary)',
+                  fontWeight: 600
                 }}>
                   {getCurrencySymbol(currency)}{taxAmount.toLocaleString()} ({taxRate}%)
                 </div>
@@ -227,8 +228,8 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
 
             {/* Calculated Grand Total Pill */}
             <div style={{
-              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1))',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
+              background: 'linear-gradient(135deg, rgba(58, 156, 185, 0.08), rgba(22, 46, 74, 0.05))',
+              border: '1px solid rgba(58, 156, 185, 0.3)',
               borderRadius: 'var(--radius-md)',
               padding: '12px 16px',
               display: 'flex',
@@ -244,7 +245,7 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
                   Subtotal: {getCurrencySymbol(currency)}{costNum.toLocaleString()} + Tax: {getCurrencySymbol(currency)}{taxAmount.toLocaleString()}
                 </div>
               </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '1.3rem', color: '#34d399' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '1.3rem', color: 'var(--brand-cerulean)' }}>
                 {getCurrencySymbol(currency)}{totalAmount.toLocaleString()}
               </div>
             </div>
@@ -274,7 +275,7 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
             <div className="form-group">
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                 <label className="form-label" style={{ margin: 0 }}>Progress Completion</label>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', color: '#60a5fa', fontWeight: 600 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', color: 'var(--brand-cerulean)', fontWeight: 700 }}>
                   {progress}%
                 </span>
               </div>
@@ -284,7 +285,7 @@ export const AddDeliverableModal: React.FC<AddDeliverableModalProps> = ({
                 max="100"
                 value={progress}
                 onChange={(e) => setProgress(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#3b82f6', cursor: 'pointer' }}
+                style={{ width: '100%', accentColor: 'var(--brand-coral)', cursor: 'pointer' }}
               />
             </div>
 

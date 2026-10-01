@@ -8,10 +8,10 @@ import {
   Mail, 
   Eye, 
   EyeOff, 
-  ArrowRight,
-  CheckCircle2,
-  AlertCircle,
-  Database
+  ArrowRight, 
+  CheckCircle2, 
+  AlertCircle, 
+  Database 
 } from 'lucide-react';
 
 export const LoginView: React.FC = () => {
@@ -50,7 +50,12 @@ export const LoginView: React.FC = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'radial-gradient(circle at 50% 20%, rgba(30, 58, 138, 0.25) 0%, rgba(15, 23, 42, 0.98) 70%)',
+      backgroundColor: '#f8fafc',
+      backgroundImage: `
+        radial-gradient(circle at 15% 15%, rgba(58, 156, 185, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(224, 67, 54, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(22, 46, 74, 0.04) 0%, transparent 60%)
+      `,
       padding: '24px 16px',
       position: 'relative',
       overflow: 'hidden'
@@ -68,30 +73,6 @@ export const LoginView: React.FC = () => {
         />
       </div>
 
-      {/* Background ambient lighting */}
-      <div style={{
-        position: 'absolute',
-        top: '-10%',
-        left: '20%',
-        width: '500px',
-        height: '500px',
-        borderRadius: '50%',
-        background: 'rgba(59, 130, 246, 0.12)',
-        filter: 'blur(120px)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: '-10%',
-        right: '20%',
-        width: '450px',
-        height: '450px',
-        borderRadius: '50%',
-        background: 'rgba(16, 185, 129, 0.1)',
-        filter: 'blur(120px)',
-        pointerEvents: 'none',
-      }} />
-
       <div style={{
         width: '100%',
         maxWidth: '460px',
@@ -100,29 +81,28 @@ export const LoginView: React.FC = () => {
       }}>
         {/* Main Card */}
         <div style={{
-          background: 'rgba(23, 32, 51, 0.85)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: '18px',
-          padding: '36px 32px',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.15)',
+          background: '#ffffff',
+          border: '1px solid #e2e8f0',
+          borderRadius: '20px',
+          padding: '38px 34px',
+          boxShadow: '0 20px 45px -12px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(15, 23, 42, 0.03)',
         }}>
-          {/* Brand Header */}
+          {/* Brand Header with Official EST Logo */}
           <div style={{ textAlign: 'center', marginBottom: '28px' }}>
             <div style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '14px' }}>
-              <ESTLogo height={44} />
+              <ESTLogo height={48} />
             </div>
             <h1 style={{
               fontFamily: 'var(--font-heading)',
               fontSize: '1.45rem',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--brand-navy)',
               margin: '6px 0 4px 0',
               letterSpacing: '-0.02em',
             }}>
               Project Tracker Portal
             </h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.84rem' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.84rem' }}>
               Sign in to access your scoped project workspace & executive controls
             </p>
           </div>
@@ -130,12 +110,12 @@ export const LoginView: React.FC = () => {
           {/* Error notification */}
           {errorMsg && (
             <div style={{
-              background: 'rgba(239, 68, 68, 0.12)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
+              background: 'rgba(239, 68, 68, 0.08)',
+              border: '1px solid rgba(239, 68, 68, 0.25)',
               borderRadius: '10px',
               padding: '12px 14px',
               marginBottom: '18px',
-              color: '#f87171',
+              color: '#dc2626',
               fontSize: '0.84rem',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: errorMsg.includes('password') ? 6 : 0 }}>
@@ -143,9 +123,9 @@ export const LoginView: React.FC = () => {
                 <span style={{ fontWeight: 600 }}>{errorMsg}</span>
               </div>
               {errorMsg.includes('password') && (
-                <div style={{ fontSize: '0.78rem', color: '#94a3b8', paddingLeft: 27, lineHeight: 1.4 }}>
-                  Default offline password is <code style={{ color: '#60a5fa', background: 'rgba(59,130,246,0.15)', padding: '1px 5px', borderRadius: 4 }}>Admin#4625</code> (or <code style={{ color: '#94a3b8' }}>Admin@123</code>).
-                  If you created a new password on another device, connect your <button type="button" onClick={() => setIsCloudDbModalOpen(true)} style={{ color: '#38bdf8', background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer', fontSize: '0.78rem' }}>Cloud Database</button> to sync it.
+                <div style={{ fontSize: '0.78rem', color: '#64748b', paddingLeft: 27, lineHeight: 1.4 }}>
+                  Default offline password is <code style={{ color: 'var(--brand-navy)', background: 'rgba(22, 46, 74, 0.08)', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Admin#4625</code> (or <code style={{ color: '#64748b' }}>Admin@123</code>).
+                  If you created a new password on another device, connect your <button type="button" onClick={() => setIsCloudDbModalOpen(true)} style={{ color: 'var(--brand-cerulean)', background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600 }}>Cloud Database</button> to sync it.
                 </div>
               )}
             </div>
@@ -167,7 +147,6 @@ export const LoginView: React.FC = () => {
                   style={{
                     paddingLeft: '38px',
                     fontSize: '0.9rem',
-                    background: 'rgba(15, 23, 42, 0.75)',
                   }}
                   autoFocus
                   required
@@ -205,7 +184,6 @@ export const LoginView: React.FC = () => {
                     paddingLeft: '38px',
                     paddingRight: '38px',
                     fontSize: '0.9rem',
-                    background: 'rgba(15, 23, 42, 0.75)',
                   }}
                   required
                 />
@@ -251,7 +229,6 @@ export const LoginView: React.FC = () => {
                 fontWeight: 700,
                 width: '100%',
                 justifyContent: 'center',
-                boxShadow: '0 4px 14px rgba(59, 130, 246, 0.35)',
               }}
             >
               {isSubmitting ? (
@@ -276,8 +253,9 @@ export const LoginView: React.FC = () => {
               style={{
                 background: 'none',
                 border: 'none',
-                color: '#60a5fa',
+                color: 'var(--brand-cerulean)',
                 fontSize: '0.78rem',
+                fontWeight: 600,
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -302,7 +280,7 @@ export const LoginView: React.FC = () => {
             fontSize: '0.74rem',
             color: 'var(--text-muted)',
           }}>
-            <CheckCircle2 size={14} color="#10b981" />
+            <CheckCircle2 size={14} color="#059669" />
             <span>10-Year Cloud Data Retention & Realtime Multi-Device Sync.</span>
           </div>
         </div>

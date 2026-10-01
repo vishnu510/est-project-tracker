@@ -73,16 +73,16 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
               width: 38, 
               height: 38, 
               borderRadius: '8px', 
-              background: 'rgba(59, 130, 246, 0.15)', 
+              background: 'rgba(22, 46, 74, 0.08)', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              color: '#3b82f6' 
+              color: 'var(--brand-navy)' 
             }}>
               <Mail size={20} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.2rem', color: '#fff' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.2rem', color: 'var(--brand-navy)' }}>
                 Email Service Integration Settings
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -99,7 +99,7 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
         <div style={{ 
           display: 'flex', 
           borderBottom: '1px solid var(--border-subtle)', 
-          background: 'rgba(0,0,0,0.2)',
+          background: '#f8fafc',
           padding: '0 24px'
         }}>
           <button
@@ -109,9 +109,9 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
               padding: '12px 18px',
               border: 'none',
               background: 'transparent',
-              color: activeTab === 'config' ? '#60a5fa' : 'var(--text-muted)',
-              borderBottom: activeTab === 'config' ? '2px solid #3b82f6' : '2px solid transparent',
-              fontWeight: 600,
+              color: activeTab === 'config' ? 'var(--brand-navy)' : 'var(--text-muted)',
+              borderBottom: activeTab === 'config' ? '2px solid var(--brand-coral)' : '2px solid transparent',
+              fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer'
             }}
@@ -125,9 +125,9 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
               padding: '12px 18px',
               border: 'none',
               background: 'transparent',
-              color: activeTab === 'guide' ? '#60a5fa' : 'var(--text-muted)',
-              borderBottom: activeTab === 'guide' ? '2px solid #3b82f6' : '2px solid transparent',
-              fontWeight: 600,
+              color: activeTab === 'guide' ? 'var(--brand-navy)' : 'var(--text-muted)',
+              borderBottom: activeTab === 'guide' ? '2px solid var(--brand-coral)' : '2px solid transparent',
+              fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',
               display: 'flex',
@@ -151,16 +151,16 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
                     type="button"
                     onClick={() => setProvider('emailjs')}
                     style={{
-                      background: provider === 'emailjs' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(255,255,255,0.03)',
-                      border: provider === 'emailjs' ? '2px solid #3b82f6' : '1px solid var(--border-subtle)',
+                      background: provider === 'emailjs' ? 'rgba(22, 46, 74, 0.08)' : '#f8fafc',
+                      border: provider === 'emailjs' ? '2px solid var(--brand-navy)' : '1px solid var(--border-subtle)',
                       borderRadius: 'var(--radius-md)',
                       padding: '12px 10px',
                       textAlign: 'left',
                       cursor: 'pointer',
-                      color: '#fff'
+                      color: 'var(--text-primary)'
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: '0.88rem', color: provider === 'emailjs' ? '#60a5fa' : '#fff' }}>
+                    <div style={{ fontWeight: 800, fontSize: '0.88rem', color: provider === 'emailjs' ? 'var(--brand-navy)' : 'var(--text-primary)' }}>
                       EmailJS
                     </div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: 4 }}>
@@ -172,16 +172,16 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
                     type="button"
                     onClick={() => setProvider('custom_api')}
                     style={{
-                      background: provider === 'custom_api' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(255,255,255,0.03)',
-                      border: provider === 'custom_api' ? '2px solid #3b82f6' : '1px solid var(--border-subtle)',
+                      background: provider === 'custom_api' ? 'rgba(22, 46, 74, 0.08)' : '#f8fafc',
+                      border: provider === 'custom_api' ? '2px solid var(--brand-navy)' : '1px solid var(--border-subtle)',
                       borderRadius: 'var(--radius-md)',
                       padding: '12px 10px',
                       textAlign: 'left',
                       cursor: 'pointer',
-                      color: '#fff'
+                      color: 'var(--text-primary)'
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: '0.88rem', color: provider === 'custom_api' ? '#60a5fa' : '#fff' }}>
+                    <div style={{ fontWeight: 800, fontSize: '0.88rem', color: provider === 'custom_api' ? 'var(--brand-navy)' : 'var(--text-primary)' }}>
                       Resend / Webhook
                     </div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: 4 }}>
@@ -193,16 +193,16 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
                     type="button"
                     onClick={() => setProvider('est_cloud')}
                     style={{
-                      background: provider === 'est_cloud' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(255,255,255,0.03)',
-                      border: provider === 'est_cloud' ? '2px solid #3b82f6' : '1px solid var(--border-subtle)',
+                      background: provider === 'est_cloud' ? 'rgba(22, 46, 74, 0.08)' : '#f8fafc',
+                      border: provider === 'est_cloud' ? '2px solid var(--brand-navy)' : '1px solid var(--border-subtle)',
                       borderRadius: 'var(--radius-md)',
                       padding: '12px 10px',
                       textAlign: 'left',
                       cursor: 'pointer',
-                      color: '#fff'
+                      color: 'var(--text-primary)'
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: '0.88rem', color: provider === 'est_cloud' ? '#60a5fa' : '#fff' }}>
+                    <div style={{ fontWeight: 800, fontSize: '0.88rem', color: provider === 'est_cloud' ? 'var(--brand-navy)' : 'var(--text-primary)' }}>
                       EST Cloud Engine
                     </div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: 4 }}>
@@ -214,8 +214,8 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
 
               {/* Provider Specific Fields */}
               {provider === 'emailjs' && (
-                <div style={{ background: 'var(--bg-input)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: 18 }}>
-                  <div style={{ fontSize: '0.76rem', color: '#60a5fa', fontWeight: 600, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: 18 }}>
+                  <div style={{ fontSize: '0.76rem', color: 'var(--brand-navy)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
                     <Key size={14} />
                     <span>EmailJS Credentials (from emailjs.com dashboard)</span>
                   </div>
@@ -258,8 +258,8 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
               )}
 
               {provider === 'custom_api' && (
-                <div style={{ background: 'var(--bg-input)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: 18 }}>
-                  <div style={{ fontSize: '0.76rem', color: '#60a5fa', fontWeight: 600, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: 18 }}>
+                  <div style={{ fontSize: '0.76rem', color: 'var(--brand-navy)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
                     <Server size={14} />
                     <span>REST API Endpoint & Bearer Token</span>
                   </div>
@@ -313,13 +313,13 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
 
               {/* Live Test Sender Box */}
               <div style={{ 
-                background: 'rgba(59, 130, 246, 0.08)', 
-                border: '1px solid rgba(59, 130, 246, 0.25)', 
+                background: 'rgba(58, 156, 185, 0.08)', 
+                border: '1px solid rgba(58, 156, 185, 0.25)', 
                 borderRadius: 'var(--radius-md)', 
                 padding: '14px 16px',
                 marginTop: 10 
               }}>
-                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#93c5fd', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-cerulean)', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
                   <Sparkles size={14} />
                   <span>Send Live Test Invitation</span>
                 </div>
@@ -360,18 +360,18 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
           /* Guide Tab */
           <div className="modal-body" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
             <div style={{ color: 'var(--text-primary)', fontSize: '0.88rem', lineHeight: 1.6 }}>
-              <h3 style={{ color: '#60a5fa', marginBottom: 8, fontSize: '1.05rem' }}>
+              <h3 style={{ color: 'var(--brand-navy)', marginBottom: 8, fontSize: '1.05rem', fontWeight: 800 }}>
                 Required Details for Real Email Delivery
               </h3>
               <p style={{ color: 'var(--text-secondary)', marginBottom: 16 }}>
                 To enable live emails when clicking <strong>"Invite Team Member"</strong>, follow these steps with <strong>EmailJS</strong> (Free tier allows 200 free emails/month):
               </p>
 
-              <div style={{ background: 'var(--bg-input)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: 16 }}>
+              <div style={{ background: '#f8fafc', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: 16 }}>
                 <ol style={{ paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <li>
                     <strong>Step 1 — Create a Free Account:</strong><br />
-                    Sign up at <a href="https://www.emailjs.com" target="_blank" rel="noreferrer" style={{ color: '#60a5fa' }}>https://www.emailjs.com</a>.
+                    Sign up at <a href="https://www.emailjs.com" target="_blank" rel="noreferrer" style={{ color: 'var(--brand-cerulean)', fontWeight: 600 }}>https://www.emailjs.com</a>.
                   </li>
                   <li>
                     <strong>Step 2 — Connect Email Service:</strong><br />
@@ -380,7 +380,7 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
                   <li>
                     <strong>Step 3 — Create an Email Template:</strong><br />
                     In EmailJS, create an invitation template with the template variables:
-                    <div style={{ background: 'rgba(0,0,0,0.4)', padding: '10px', borderRadius: '6px', marginTop: 6, fontFamily: 'var(--font-mono)', fontSize: '0.76rem', color: '#38bdf8' }}>
+                    <div style={{ background: '#0f172a', padding: '10px', borderRadius: '6px', marginTop: 6, fontFamily: 'var(--font-mono)', fontSize: '0.76rem', color: '#93c5fd' }}>
                       To: &#123;&#123;to_email&#125;&#125;<br />
                       Subject: &#123;&#123;subject&#125;&#125;<br />
                       Body: Hello &#123;&#123;to_name&#125;&#125;, you have been invited as &#123;&#123;role_assigned&#125;&#125; by &#123;&#123;inviter_name&#125;&#125;. Join here: &#123;&#123;invite_link&#125;&#125;
@@ -393,7 +393,7 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({ isOpen, 
                 </ol>
               </div>
 
-              <div style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: 'var(--radius-md)', padding: '14px', fontSize: '0.82rem', color: '#34d399' }}>
+              <div style={{ background: 'rgba(5, 150, 105, 0.08)', border: '1px solid rgba(5, 150, 105, 0.25)', borderRadius: 'var(--radius-md)', padding: '14px', fontSize: '0.82rem', color: '#059669' }}>
                 <CheckCircle2 size={16} style={{ display: 'inline', marginRight: 6, verticalAlign: 'text-bottom' }} />
                 <strong>Fallback Protection:</strong> Even before adding your own API keys, all invitation emails are immediately recorded with full HTML previews in the <strong>Invitation Delivery Log</strong> below in User Management!
               </div>

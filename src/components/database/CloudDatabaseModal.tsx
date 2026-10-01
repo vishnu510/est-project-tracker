@@ -171,8 +171,8 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
       left: 0,
       right: 0,
       bottom: 0,
-      background: 'rgba(5, 10, 20, 0.85)',
-      backdropFilter: 'blur(10px)',
+      background: 'rgba(15, 23, 42, 0.6)',
+      backdropFilter: 'blur(8px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -180,15 +180,15 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
       padding: '20px',
     }}>
       <div style={{
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border-light)',
+        background: '#ffffff',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         width: '100%',
         maxWidth: '860px',
         maxHeight: '90vh',
         display: 'flex',
         flexDirection: 'column',
-        boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(59, 130, 246, 0.2)',
+        boxShadow: '0 25px 60px -15px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(15, 23, 42, 0.05)',
         overflow: 'hidden',
         animation: 'fadeIn 0.25s ease',
       }}>
@@ -199,35 +199,35 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(15, 23, 42, 0.6)',
+          background: '#ffffff',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
               width: 40,
               height: 40,
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
+              background: 'linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-cerulean) 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#fff',
-              boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)',
+              color: '#ffffff',
+              boxShadow: '0 4px 14px rgba(22, 46, 74, 0.2)',
             }}>
               <Database size={22} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 800, color: '#fff', margin: 0 }}>
+                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 800, color: 'var(--brand-navy)', margin: 0 }}>
                   Enterprise Cloud Database & Sync
                 </h3>
                 <span style={{
                   fontSize: '0.72rem',
                   fontWeight: 700,
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  color: '#34d399',
+                  background: 'rgba(5, 150, 105, 0.1)',
+                  color: '#059669',
                   padding: '2px 8px',
                   borderRadius: '4px',
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  border: '1px solid rgba(5, 150, 105, 0.25)',
                 }}>
                   10-Year Retention Engine
                 </span>
@@ -251,7 +251,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
         <div style={{
           display: 'flex',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(10, 16, 30, 0.4)',
+          background: '#f8fafc',
           padding: '0 16px',
           overflowX: 'auto',
         }}>
@@ -275,8 +275,8 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   padding: '12px 16px',
                   background: 'none',
                   border: 'none',
-                  borderBottom: isActive ? '2px solid #3b82f6' : '2px solid transparent',
-                  color: isActive ? '#fff' : 'var(--text-muted)',
+                  borderBottom: isActive ? '2px solid var(--brand-coral)' : '2px solid transparent',
+                  color: isActive ? 'var(--brand-navy)' : 'var(--text-muted)',
                   fontWeight: isActive ? 700 : 500,
                   fontSize: '0.82rem',
                   cursor: 'pointer',
@@ -284,7 +284,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   transition: 'all 0.15s ease',
                 }}
               >
-                <Icon size={15} color={isActive ? '#3b82f6' : 'currentColor'} />
+                <Icon size={15} color={isActive ? 'var(--brand-coral)' : 'currentColor'} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -299,9 +299,9 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
               {/* Main Status Hero Card */}
               <div style={{
                 background: cloudStatus === 'online' 
-                  ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(15, 23, 42, 0.8) 100%)'
-                  : 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%)',
-                border: `1px solid ${cloudStatus === 'online' ? 'rgba(16, 185, 129, 0.35)' : 'rgba(59, 130, 246, 0.25)'}`,
+                  ? 'linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(248, 250, 252, 0.9) 100%)'
+                  : 'linear-gradient(135deg, rgba(58, 156, 185, 0.08) 0%, rgba(248, 250, 252, 0.9) 100%)',
+                border: `1px solid ${cloudStatus === 'online' ? 'rgba(5, 150, 105, 0.25)' : 'rgba(58, 156, 185, 0.25)'}`,
                 borderRadius: '12px',
                 padding: '20px',
                 display: 'flex',
@@ -315,28 +315,28 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                     width: 48,
                     height: 48,
                     borderRadius: '50%',
-                    background: cloudStatus === 'online' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(59, 130, 246, 0.2)',
+                    background: cloudStatus === 'online' ? 'rgba(5, 150, 105, 0.12)' : 'rgba(58, 156, 185, 0.12)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: cloudStatus === 'online' ? '#34d399' : '#60a5fa',
+                    color: cloudStatus === 'online' ? '#059669' : 'var(--brand-cerulean)',
                   }}>
-                    {cloudStatus === 'online' ? <Radio size={24} className="pulse-fast" /> : <Database size={24} />}
+                    {cloudStatus === 'online' ? <Radio size={24} /> : <Database size={24} />}
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#fff', margin: 0 }}>
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--brand-navy)', margin: 0 }}>
                         {cloudStatus === 'online' ? 'Supabase PostgreSQL Cloud Active' : 'Local Storage Mode Active'}
                       </h4>
                       <span style={{
                         width: 8,
                         height: 8,
                         borderRadius: '50%',
-                        backgroundColor: cloudStatus === 'online' ? '#10b981' : '#3b82f6',
-                        boxShadow: `0 0 8px ${cloudStatus === 'online' ? '#10b981' : '#3b82f6'}`,
+                        backgroundColor: cloudStatus === 'online' ? '#059669' : 'var(--brand-cerulean)',
+                        boxShadow: `0 0 6px ${cloudStatus === 'online' ? '#059669' : 'var(--brand-cerulean)'}`,
                       }} />
                     </div>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
                       {cloudStatus === 'online' 
                         ? 'All changes are broadcast across all active admins in real-time via WebSockets.'
                         : 'Currently using local browser storage. Connect Supabase to sync data across devices.'}
@@ -369,57 +369,57 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
 
               {/* Records Metrics Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Projects</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginTop: 4 }}>{projects.length}</div>
-                  <div style={{ fontSize: '0.72rem', color: '#10b981', marginTop: 2 }}>Permanent Cloud Store</div>
+                <div style={{ background: '#f8fafc', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Total Projects</div>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--brand-navy)', marginTop: 4 }}>{projects.length}</div>
+                  <div style={{ fontSize: '0.72rem', color: '#059669', marginTop: 2, fontWeight: 600 }}>Permanent Cloud Store</div>
                 </div>
 
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Deliverables & Tasks</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginTop: 4 }}>{totalDeliverablesCount}</div>
-                  <div style={{ fontSize: '0.72rem', color: '#60a5fa', marginTop: 2 }}>Relational Foreign Keys</div>
+                <div style={{ background: '#f8fafc', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Deliverables & Tasks</div>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--brand-cerulean)', marginTop: 4 }}>{totalDeliverablesCount}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--brand-cerulean)', marginTop: 2, fontWeight: 600 }}>Relational Foreign Keys</div>
                 </div>
 
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Admins & Users</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginTop: 4 }}>{users.length}</div>
-                  <div style={{ fontSize: '0.72rem', color: '#fbbf24', marginTop: 2 }}>RBAC Scoped Accounts</div>
+                <div style={{ background: '#f8fafc', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Admins & Users</div>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#d97706', marginTop: 4 }}>{users.length}</div>
+                  <div style={{ fontSize: '0.72rem', color: '#d97706', marginTop: 2, fontWeight: 600 }}>RBAC Scoped Accounts</div>
                 </div>
 
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Audit Trail Logs</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginTop: 4 }}>{activityLogs.length}</div>
-                  <div style={{ fontSize: '0.72rem', color: '#c084fc', marginTop: 2 }}>10-Year Immutable Log</div>
+                <div style={{ background: '#f8fafc', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '14px 16px' }}>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Audit Trail Logs</div>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#7c3aed', marginTop: 4 }}>{activityLogs.length}</div>
+                  <div style={{ fontSize: '0.72rem', color: '#7c3aed', marginTop: 2, fontWeight: 600 }}>10-Year Immutable Log</div>
                 </div>
               </div>
 
               {/* Realtime Features Featurette */}
               <div style={{
-                background: 'rgba(15, 23, 42, 0.6)',
+                background: '#f8fafc',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '18px 20px',
               }}>
-                <h5 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#fff', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <ShieldCheck size={16} color="#3b82f6" />
+                <h5 style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--brand-navy)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <ShieldCheck size={16} color="var(--brand-cerulean)" />
                   <span>Enterprise 10-Year Data Guarantees</span>
                 </h5>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12, fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <CheckCircle2 size={15} color="#10b981" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <CheckCircle2 size={15} color="#059669" style={{ flexShrink: 0, marginTop: 2 }} />
                     <span><strong>10+ Year Retention:</strong> PostgreSQL database hosted on resilient cloud infrastructure with automated snapshots.</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <CheckCircle2 size={15} color="#10b981" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <CheckCircle2 size={15} color="#059669" style={{ flexShrink: 0, marginTop: 2 }} />
                     <span><strong>Real-time Multi-Device:</strong> Add a project on your laptop, and your team sees it update live instantly without refreshing.</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <CheckCircle2 size={15} color="#10b981" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <CheckCircle2 size={15} color="#059669" style={{ flexShrink: 0, marginTop: 2 }} />
                     <span><strong>Offline Local Caching:</strong> If internet disconnects, the app runs smoothly offline and syncs as soon as connection returns.</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <CheckCircle2 size={15} color="#10b981" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <CheckCircle2 size={15} color="#059669" style={{ flexShrink: 0, marginTop: 2 }} />
                     <span><strong>Universal Login:</strong> Admins can log in from any browser, office machine, or mobile device with full data intact.</span>
                   </div>
                 </div>
@@ -431,14 +431,14 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
           {activeTab === 'credentials' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{
-                background: 'rgba(59, 130, 246, 0.08)',
-                border: '1px solid rgba(59, 130, 246, 0.25)',
+                background: 'rgba(58, 156, 185, 0.08)',
+                border: '1px solid rgba(58, 156, 185, 0.25)',
                 borderRadius: '10px',
                 padding: '14px 18px',
                 fontSize: '0.82rem',
                 color: 'var(--text-secondary)',
               }}>
-                <div style={{ fontWeight: 700, color: '#60a5fa', marginBottom: 4 }}>
+                <div style={{ fontWeight: 700, color: 'var(--brand-cerulean)', marginBottom: 4 }}>
                   Connect Your Supabase PostgreSQL Project
                 </div>
                 You can get your free PostgreSQL database in 2 minutes at{' '}
@@ -446,7 +446,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   href="https://supabase.com" 
                   target="_blank" 
                   rel="noreferrer" 
-                  style={{ color: '#38bdf8', textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                  style={{ color: 'var(--brand-cerulean)', textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: 4, fontWeight: 600 }}
                 >
                   supabase.com <ExternalLink size={12} />
                 </a>.
@@ -501,15 +501,15 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                 {/* Test Feedback Box */}
                 {testResult && (
                   <div style={{
-                    background: testResult.success ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)',
-                    border: `1px solid ${testResult.success ? 'rgba(16, 185, 129, 0.35)' : 'rgba(239, 68, 68, 0.35)'}`,
+                    background: testResult.success ? 'rgba(5, 150, 105, 0.08)' : 'rgba(220, 38, 38, 0.08)',
+                    border: `1px solid ${testResult.success ? 'rgba(5, 150, 105, 0.25)' : 'rgba(220, 38, 38, 0.25)'}`,
                     borderRadius: '8px',
                     padding: '12px 16px',
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: 10,
                     fontSize: '0.82rem',
-                    color: testResult.success ? '#34d399' : '#f87171',
+                    color: testResult.success ? '#059669' : '#dc2626',
                   }}>
                     {testResult.success ? <CheckCircle2 size={18} style={{ flexShrink: 0 }} /> : <AlertCircle size={18} style={{ flexShrink: 0 }} />}
                     <div>
@@ -518,7 +518,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                       </div>
                       <div style={{ marginTop: 2, fontSize: '0.78rem' }}>{testResult.message}</div>
                       {testResult.tablesFound && (
-                        <div style={{ marginTop: 6, display: 'flex', gap: 8, fontSize: '0.72rem' }}>
+                        <div style={{ marginTop: 6, display: 'flex', gap: 8, fontSize: '0.72rem', fontWeight: 600 }}>
                           <span>Projects Table: {testResult.tablesFound.projects ? '✅' : '❌'}</span>
                           <span>Deliverables: {testResult.tablesFound.deliverables ? '✅' : '❌'}</span>
                           <span>Users: {testResult.tablesFound.app_users ? '✅' : '❌'}</span>
@@ -574,12 +574,12 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
           {activeTab === 'migration' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{
-                background: 'rgba(16, 185, 129, 0.08)',
-                border: '1px solid rgba(16, 185, 129, 0.25)',
+                background: 'rgba(5, 150, 105, 0.08)',
+                border: '1px solid rgba(5, 150, 105, 0.25)',
                 borderRadius: '10px',
                 padding: '16px 20px',
               }}>
-                <h4 style={{ fontSize: '0.98rem', fontWeight: 800, color: '#34d399', margin: '0 0 6px 0' }}>
+                <h4 style={{ fontSize: '0.98rem', fontWeight: 800, color: '#059669', margin: '0 0 6px 0' }}>
                   1-Click Local to Cloud Database Migration
                 </h4>
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', margin: 0 }}>
@@ -589,7 +589,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
 
               {/* Summary table of local records */}
               <div style={{
-                background: 'rgba(15, 23, 42, 0.6)',
+                background: '#f8fafc',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '16px',
@@ -598,35 +598,35 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                 gap: 12,
               }}>
                 <div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Projects Ready:</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff' }}>{projects.length} Records</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600 }}>Projects Ready:</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--brand-navy)' }}>{projects.length} Records</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Deliverables:</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#60a5fa' }}>{totalDeliverablesCount} Tasks</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600 }}>Deliverables:</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--brand-cerulean)' }}>{totalDeliverablesCount} Tasks</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Admin Accounts:</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fbbf24' }}>{users.length} Users</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600 }}>Admin Accounts:</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#d97706' }}>{users.length} Users</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Audit Logs:</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#c084fc' }}>{activityLogs.length} Entries</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600 }}>Audit Logs:</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#7c3aed' }}>{activityLogs.length} Entries</div>
                 </div>
               </div>
 
               {/* Progress Bar */}
               {isMigrating && (
-                <div style={{ background: 'rgba(15, 23, 42, 0.8)', border: '1px solid var(--border-light)', borderRadius: '10px', padding: '16px' }}>
+                <div style={{ background: '#f8fafc', border: '1px solid var(--border-light)', borderRadius: '10px', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: 8 }}>
-                    <span style={{ color: '#60a5fa', fontWeight: 600 }}>{migrationStage}</span>
-                    <span style={{ color: '#fff', fontWeight: 700 }}>{migrationProgress}%</span>
+                    <span style={{ color: 'var(--brand-navy)', fontWeight: 700 }}>{migrationStage}</span>
+                    <span style={{ color: 'var(--brand-cerulean)', fontWeight: 800 }}>{migrationProgress}%</span>
                   </div>
-                  <div style={{ width: '100%', height: 8, background: 'rgba(255,255,255,0.1)', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ width: '100%', height: 8, background: '#e2e8f0', borderRadius: 4, overflow: 'hidden' }}>
                     <div style={{
                       width: `${migrationProgress}%`,
                       height: '100%',
-                      background: 'linear-gradient(90deg, #3b82f6 0%, #10b981 100%)',
+                      background: 'linear-gradient(90deg, #e04336 0%, #059669 100%)',
                       transition: 'width 0.3s ease',
                     }} />
                   </div>
@@ -646,7 +646,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   <span>{isMigrating ? 'Migrating Data to Cloud...' : 'Start 1-Click Cloud Migration'}</span>
                 </button>
                 {!config.isConnected && (
-                  <div style={{ textAlign: 'center', fontSize: '0.74rem', color: '#f87171', marginTop: 8 }}>
+                  <div style={{ textAlign: 'center', fontSize: '0.74rem', color: '#dc2626', marginTop: 8, fontWeight: 600 }}>
                     Please connect your Supabase Cloud credentials in the "Cloud Credentials" tab first.
                   </div>
                 )}
@@ -658,14 +658,14 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
           {activeTab === 'schema' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{
-                background: 'rgba(59, 130, 246, 0.08)',
-                border: '1px solid rgba(59, 130, 246, 0.25)',
+                background: 'rgba(58, 156, 185, 0.08)',
+                border: '1px solid rgba(58, 156, 185, 0.25)',
                 borderRadius: '10px',
                 padding: '14px 18px',
                 fontSize: '0.82rem',
                 color: 'var(--text-secondary)',
               }}>
-                <div style={{ fontWeight: 700, color: '#60a5fa', marginBottom: 4 }}>
+                <div style={{ fontWeight: 700, color: 'var(--brand-cerulean)', marginBottom: 4 }}>
                   2-Minute Supabase Database Setup Guide:
                 </div>
                 <ol style={{ margin: '6px 0 0 0', paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -677,7 +677,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fff' }}>
+                <span style={{ fontSize: '0.84rem', fontWeight: 800, color: 'var(--brand-navy)' }}>
                   PostgreSQL 10-Year Schema DDL & Realtime Script
                 </span>
                 <button
@@ -692,7 +692,7 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
               </div>
 
               <pre style={{
-                background: 'rgba(5, 10, 20, 0.9)',
+                background: '#0f172a',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
                 padding: '16px',
@@ -713,14 +713,14 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
           {activeTab === 'backups' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{
-                background: 'rgba(245, 158, 11, 0.08)',
-                border: '1px solid rgba(245, 158, 11, 0.25)',
+                background: 'rgba(217, 119, 6, 0.08)',
+                border: '1px solid rgba(217, 119, 6, 0.25)',
                 borderRadius: '10px',
                 padding: '14px 18px',
                 fontSize: '0.82rem',
                 color: 'var(--text-secondary)',
               }}>
-                <div style={{ fontWeight: 700, color: '#fbbf24', marginBottom: 4 }}>
+                <div style={{ fontWeight: 700, color: '#d97706', marginBottom: 4 }}>
                   10-Year Archiving & Disaster Recovery Export
                 </div>
                 Download complete snapshots of your enterprise project database. These files can be archived locally, stored in cold storage, or restored into any PostgreSQL/Supabase database at any point over the next 10+ years.
@@ -729,8 +729,8 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
                 {/* Option 1: SQL Dump */}
                 <div style={{
-                  background: 'rgba(15, 23, 42, 0.6)',
-                  border: '1px solid var(--border-light)',
+                  background: '#f8fafc',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '18px',
                   display: 'flex',
@@ -738,11 +738,11 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   gap: 12,
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#60a5fa' }}>
+                    <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'rgba(22, 46, 74, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-navy)' }}>
                       <FileCode size={20} />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, color: '#fff', fontSize: '0.88rem' }}>PostgreSQL SQL Dump</div>
+                      <div style={{ fontWeight: 800, color: 'var(--brand-navy)', fontSize: '0.88rem' }}>PostgreSQL SQL Dump</div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>.SQL Database File</div>
                     </div>
                   </div>
@@ -764,8 +764,8 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
 
                 {/* Option 2: JSON Archive */}
                 <div style={{
-                  background: 'rgba(15, 23, 42, 0.6)',
-                  border: '1px solid var(--border-light)',
+                  background: '#f8fafc',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '18px',
                   display: 'flex',
@@ -773,11 +773,11 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   gap: 12,
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#34d399' }}>
+                    <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'rgba(5, 150, 105, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
                       <FileJson size={20} />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, color: '#fff', fontSize: '0.88rem' }}>JSON Master Archive</div>
+                      <div style={{ fontWeight: 800, color: 'var(--brand-navy)', fontSize: '0.88rem' }}>JSON Master Archive</div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>.JSON Complete Snapshot</div>
                     </div>
                   </div>
@@ -799,8 +799,8 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
 
                 {/* Option 3: Excel Master Book */}
                 <div style={{
-                  background: 'rgba(15, 23, 42, 0.6)',
-                  border: '1px solid var(--border-light)',
+                  background: '#f8fafc',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '18px',
                   display: 'flex',
@@ -808,11 +808,11 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
                   gap: 12,
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981' }}>
+                    <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'rgba(5, 150, 105, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
                       <FileSpreadsheet size={20} />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, color: '#fff', fontSize: '0.88rem' }}>Multi-Sheet Excel Book</div>
+                      <div style={{ fontWeight: 800, color: 'var(--brand-navy)', fontSize: '0.88rem' }}>Multi-Sheet Excel Book</div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>.XLSX Master Workbook</div>
                     </div>
                   </div>
@@ -840,14 +840,14 @@ export const CloudDatabaseModal: React.FC<CloudDatabaseModalProps> = ({
         <div style={{
           padding: '14px 24px',
           borderTop: '1px solid var(--border-subtle)',
-          background: 'rgba(15, 23, 42, 0.8)',
+          background: '#ffffff',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
           <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <ShieldCheck size={14} color="#10b981" />
-            <span>EST Enterprise Cloud Engine &bull; Version 2.1.1 (Live Cloud Connected)</span>
+            <ShieldCheck size={14} color="#059669" />
+            <span>EST Enterprise Cloud Engine &bull; Version 2.3.0 (Live Cloud Connected)</span>
           </div>
 
           <button

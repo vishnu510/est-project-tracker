@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import { 
-  X, 
   UserPlus, 
+  X, 
   KeyRound, 
-  Eye, 
-  EyeOff, 
   Sparkles, 
   Copy, 
-  Check 
+  Check, 
+  Eye, 
+  EyeOff
 } from 'lucide-react';
-
 
 interface CreateAdminModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onClose }) => {
+export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const { createAdminUser, projects, showToast } = useProject();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState(() => `Admin#${Math.floor(1000 + Math.random() * 9000)}`);
-  const [department, setDepartment] = useState('Branding & Creative');
+  const [department, setDepartment] = useState('Branding & Strategy');
   const [phone, setPhone] = useState('');
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
@@ -35,58 +37,65 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
   const handleNameChange = (val: string) => {
     setName(val);
     if (!username || username === name.toLowerCase().replace(/\s+/g, '.')) {
-      setUsername(val.toLowerCase().replace(/\s+/g, '.'));
+      const slug = val.toLowerCase().replace(/[^a-z0-9]/g, '.').replace(/\.+/g, '.');
+      setUsername(slug);
+      if (!email || email.includes('@estbrandservices.com')) {
+        setEmail(slug ? `${slug}@estbrandservices.com` : '');
+      }
     }
   };
 
   const generateNewPassword = () => {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$';
     let pass = 'Admin#';
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       pass += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     setPassword(pass);
-    showToast('Password Generated', `New temporary password: ${pass}`, 'info');
+    showToast('Password Generated', 'Created a strong temporary password', 'info');
   };
 
   const copyCredentials = () => {
-    const text = `EST Brand Services - Admin Credentials\nName: ${name || 'Admin'}\nEmail: ${email}\nUsername: ${username}\nPassword: ${password}\nDepartment: ${department}\nLogin URL: ${window.location.origin}`;
+    const text = `EST Brand Services - Admin Credentials\nName: ${name || 'New Admin'}\nEmail: ${email}\nUsername: ${username}\nPassword: ${password}\nPortal URL: ${window.location.origin}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
-    showToast('Copied', 'Admin login credentials copied to clipboard', 'success');
+    showToast('Copied', 'Admin credentials copied to clipboard', 'success');
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleToggleProject = (projId: string) => {
-    setSelectedProjects((prev) =>
-      prev.includes(projId) ? prev.filter((id) => id !== projId) : [...prev, projId]
-    );
+  const handleToggleProject = (id: string) => {
+    if (selectedProjects.includes(id)) {
+      setSelectedProjects(selectedProjects.filter((p) => p !== id));
+    } else {
+      setSelectedProjects([...selectedProjects, id]);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !password.trim()) {
-      showToast('Required Fields', 'Please complete Name, Email, and Password', 'warning');
+      showToast('Validation Error', 'Please fill in all required fields.', 'error');
       return;
     }
 
     createAdminUser({
       name: name.trim(),
       email: email.trim(),
-      username: username.trim() || name.toLowerCase().replace(/\s+/g, '.'),
+      username: username.trim() || undefined,
       password: password.trim(),
       department,
       phone: phone.trim() || undefined,
       assignedProjectIds: selectedProjects,
     });
 
+    showToast('Admin Created', `Successfully registered ${name} with Admin role`, 'success');
     onClose();
   };
 
   const departments = [
-    'Branding & Creative',
-    'Digital Marketing & Growth',
-    'Events & Experiential',
+    'Branding & Strategy',
+    'Digital Marketing & Media',
+    'Events & Live Experiences',
     'Video Production & Content',
     'Web & App Development',
     'Public Relations & Media',
@@ -103,17 +112,17 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
               width: 38, 
               height: 38, 
               borderRadius: '10px', 
-              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2))', 
-              border: '1px solid rgba(245, 158, 11, 0.35)',
+              background: 'rgba(22, 46, 74, 0.08)', 
+              border: '1px solid rgba(22, 46, 74, 0.2)',
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              color: '#fbbf24' 
+              color: 'var(--brand-navy)' 
             }}>
               <UserPlus size={20} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.2rem', color: '#fff' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.2rem', color: 'var(--brand-navy)' }}>
                 Create Project Admin Account
               </div>
               <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
@@ -186,13 +195,13 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
 
             {/* Password Generator Card */}
             <div style={{
-              background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))',
-              border: '1px solid rgba(59, 130, 246, 0.25)',
+              background: '#f8fafc',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '14px 16px',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#60a5fa', fontSize: '0.82rem', fontWeight: 600 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--brand-navy)', fontSize: '0.82rem', fontWeight: 700 }}>
                   <KeyRound size={15} />
                   <span>Assigned Password & Credentials</span>
                 </div>
@@ -200,7 +209,7 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
                   type="button"
                   onClick={generateNewPassword}
                   className="btn-ghost"
-                  style={{ fontSize: '0.74rem', padding: '3px 8px', color: '#34d399' }}
+                  style={{ fontSize: '0.74rem', padding: '3px 8px', color: '#059669', fontWeight: 700 }}
                 >
                   <Sparkles size={13} />
                   <span>Generate Strong Password</span>
@@ -217,7 +226,7 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.95rem',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       letterSpacing: '0.04em',
                       paddingRight: '36px',
                     }}
@@ -249,7 +258,7 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
                   title="Copy full credentials"
                   style={{ padding: '8px 12px', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
                 >
-                  {copied ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
+                  {copied ? <Check size={14} color="#059669" /> : <Copy size={14} />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
@@ -285,7 +294,7 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
               <div style={{
                 maxHeight: '130px',
                 overflowY: 'auto',
-                background: 'var(--bg-input)',
+                background: '#f8fafc',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
                 padding: '8px 12px',
@@ -301,20 +310,21 @@ export const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ isOpen, onCl
                       alignItems: 'center',
                       gap: 10,
                       fontSize: '0.82rem',
-                      color: selectedProjects.includes(p.id) ? '#fff' : 'var(--text-secondary)',
+                      color: selectedProjects.includes(p.id) ? 'var(--brand-navy)' : 'var(--text-secondary)',
                       cursor: 'pointer',
                       padding: '4px 6px',
                       borderRadius: '4px',
-                      background: selectedProjects.includes(p.id) ? 'rgba(59, 130, 246, 0.15)' : 'transparent',
+                      background: selectedProjects.includes(p.id) ? 'rgba(22, 46, 74, 0.08)' : 'transparent',
+                      fontWeight: selectedProjects.includes(p.id) ? 700 : 500,
                     }}
                   >
                     <input
                       type="checkbox"
                       checked={selectedProjects.includes(p.id)}
                       onChange={() => handleToggleProject(p.id)}
-                      style={{ accentColor: '#3b82f6', cursor: 'pointer' }}
+                      style={{ accentColor: 'var(--brand-coral)', cursor: 'pointer' }}
                     />
-                    <span style={{ fontFamily: 'var(--font-mono)', color: '#60a5fa', fontWeight: 600 }}>{p.id}</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--brand-navy)', fontWeight: 700 }}>{p.id}</span>
                     <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</span>
                     <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>({p.type})</span>
                   </label>

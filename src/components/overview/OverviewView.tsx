@@ -36,45 +36,45 @@ export const OverviewView: React.FC = () => {
   const statuses = [
     {
       name: 'Open / In Progress',
-      color: '#10b981',
-      bg: 'rgba(16, 185, 129, 0.12)',
-      border: 'rgba(16, 185, 129, 0.3)',
+      color: '#059669',
+      bg: 'rgba(5, 150, 105, 0.08)',
+      border: 'rgba(5, 150, 105, 0.25)',
       icon: Activity,
       desc: 'Active execution phase. Tasks, deliverables, and resource allocations are actively being worked on by the team.',
       nextStep: 'Deliverable completion & milestone reviews.'
     },
     {
       name: 'On Hold',
-      color: '#f59e0b',
-      bg: 'rgba(245, 158, 11, 0.12)',
-      border: 'rgba(245, 158, 11, 0.3)',
+      color: '#d97706',
+      bg: 'rgba(217, 119, 6, 0.08)',
+      border: 'rgba(217, 119, 6, 0.25)',
       icon: Clock,
       desc: 'Temporarily paused due to pending client feedback, missing brand assets, ad account access, or contractual signoffs.',
       nextStep: 'Resume to Open once client blockers are resolved.'
     },
     {
       name: 'Under Review',
-      color: '#06b6d4',
-      bg: 'rgba(6, 182, 212, 0.12)',
-      border: 'rgba(6, 182, 212, 0.3)',
+      color: '#0284c7',
+      bg: 'rgba(2, 132, 199, 0.08)',
+      border: 'rgba(2, 132, 199, 0.25)',
       icon: FileCheck,
       desc: 'All core deliverables completed internally and submitted to client stakeholders for formal quality audit.',
       nextStep: 'Client sign-off or change requests.'
     },
     {
       name: 'Completed',
-      color: '#a855f7',
-      bg: 'rgba(168, 85, 247, 0.12)',
-      border: 'rgba(168, 85, 247, 0.3)',
+      color: '#7c3aed',
+      bg: 'rgba(124, 58, 237, 0.08)',
+      border: 'rgba(124, 58, 237, 0.25)',
       icon: CheckCircle2,
       desc: 'Project successfully delivered, assets archived, final invoices processed, and outcomes documented.',
       nextStep: 'Post-launch support & case study documentation.'
     },
     {
       name: 'Cancelled',
-      color: '#ef4444',
-      bg: 'rgba(239, 68, 68, 0.12)',
-      border: 'rgba(239, 68, 68, 0.3)',
+      color: '#dc2626',
+      bg: 'rgba(220, 38, 38, 0.08)',
+      border: 'rgba(220, 38, 38, 0.25)',
       icon: XCircle,
       desc: 'Terminated or retracted due to client budget realignment, event cancellation, or strategic pivot.',
       nextStep: 'Post-mortem review and asset vault storage.'
@@ -84,7 +84,7 @@ export const OverviewView: React.FC = () => {
   const roles = [
     {
       title: 'Super Admin',
-      badgeColor: '#3b82f6',
+      badgeColor: 'var(--brand-navy)',
       desc: 'Complete global authority over the EST Brand Services portal ecosystem.',
       responsibilities: [
         'Global project & budget oversight',
@@ -96,7 +96,7 @@ export const OverviewView: React.FC = () => {
     },
     {
       title: 'Admin - Daily Use',
-      badgeColor: '#10b981',
+      badgeColor: '#059669',
       desc: 'Operational leaders managing client sprints, budgets, and deliverable deadlines.',
       responsibilities: [
         'Create and configure new client projects',
@@ -108,7 +108,7 @@ export const OverviewView: React.FC = () => {
     },
     {
       title: 'Admin - First Login & Members',
-      badgeColor: '#8b5cf6',
+      badgeColor: 'var(--brand-cerulean)',
       desc: 'Guided initial onboarding and daily task execution workspace.',
       responsibilities: [
         'Step 1: Receive email invitation & set password',
@@ -126,8 +126,8 @@ export const OverviewView: React.FC = () => {
       <div 
         className="card"
         style={{
-          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
-          border: '1px solid rgba(59, 130, 246, 0.25)',
+          background: 'linear-gradient(135deg, rgba(22, 46, 74, 0.04), rgba(58, 156, 185, 0.06))',
+          border: '1px solid rgba(22, 46, 74, 0.15)',
           marginBottom: '28px',
           padding: '32px 36px',
         }}
@@ -142,14 +142,14 @@ export const OverviewView: React.FC = () => {
               display: 'inline-flex', 
               alignItems: 'center', 
               gap: 6, 
-              background: 'rgba(59, 130, 246, 0.15)', 
-              color: '#60a5fa', 
+              background: 'rgba(22, 46, 74, 0.08)', 
+              color: 'var(--brand-navy)', 
               padding: '4px 12px', 
               borderRadius: '999px',
               fontSize: '0.78rem',
-              fontWeight: 600,
+              fontWeight: 700,
               marginBottom: 12,
-              border: '1px solid rgba(59, 130, 246, 0.3)'
+              border: '1px solid rgba(22, 46, 74, 0.2)'
             }}>
               <Sparkles size={14} />
               EST BRAND SERVICES SYSTEM SPECIFICATION & ARCHITECTURE
@@ -159,6 +159,7 @@ export const OverviewView: React.FC = () => {
               fontFamily: 'var(--font-heading)', 
               fontSize: '2rem', 
               fontWeight: 800, 
+              color: 'var(--brand-navy)',
               letterSpacing: '-0.02em',
               lineHeight: 1.2,
               marginBottom: 10
@@ -194,11 +195,11 @@ export const OverviewView: React.FC = () => {
                 width: 34, 
                 height: 34, 
                 borderRadius: '8px', 
-                background: 'rgba(59, 130, 246, 0.15)', 
+                background: 'rgba(22, 46, 74, 0.08)', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: '#60a5fa' 
+                color: 'var(--brand-navy)' 
               }}>
                 <Hash size={18} />
               </div>
@@ -212,7 +213,7 @@ export const OverviewView: React.FC = () => {
           </p>
 
           <div style={{ 
-            background: 'var(--bg-input)', 
+            background: '#f8fafc', 
             border: '1px solid var(--border-light)', 
             borderRadius: 'var(--radius-md)', 
             padding: '16px',
@@ -221,8 +222,8 @@ export const OverviewView: React.FC = () => {
             <div style={{ 
               fontFamily: 'var(--font-mono)', 
               fontSize: '1.35rem', 
-              fontWeight: 700, 
-              color: '#60a5fa', 
+              fontWeight: 800, 
+              color: 'var(--brand-navy)', 
               textAlign: 'center',
               letterSpacing: '0.05em'
             }}>
@@ -245,13 +246,13 @@ export const OverviewView: React.FC = () => {
 
           {/* Interactive Generator Sandbox */}
           <div style={{ 
-            background: 'rgba(255,255,255,0.02)', 
+            background: '#f8fafc', 
             border: '1px solid var(--border-subtle)', 
             borderRadius: 'var(--radius-md)', 
             padding: '14px',
             marginTop: 'auto'
           }}>
-            <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 10 }}>
+            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>
               Interactive ID Generator Sandbox:
             </div>
             <div style={{ display: 'flex', gap: 10, marginBottom: 10 }}>
@@ -281,12 +282,12 @@ export const OverviewView: React.FC = () => {
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'space-between',
-              background: 'var(--bg-input)',
+              background: '#ffffff',
               padding: '8px 12px',
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-light)'
             }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, color: '#38bdf8', fontSize: '0.92rem' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--brand-cerulean)', fontSize: '0.92rem' }}>
                 {generatedSandboxId}
               </span>
               <button
@@ -295,7 +296,7 @@ export const OverviewView: React.FC = () => {
                 style={{ padding: '4px 8px', fontSize: '0.75rem' }}
                 title="Copy ID"
               >
-                {copiedId ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
+                {copiedId ? <Check size={14} color="#059669" /> : <Copy size={14} />}
                 <span>{copiedId ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
@@ -310,11 +311,11 @@ export const OverviewView: React.FC = () => {
                 width: 34, 
                 height: 34, 
                 borderRadius: '8px', 
-                background: 'rgba(16, 185, 129, 0.15)', 
+                background: 'rgba(5, 150, 105, 0.1)', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: '#10b981' 
+                color: '#059669' 
               }}>
                 <Activity size={18} />
               </div>
@@ -332,7 +333,7 @@ export const OverviewView: React.FC = () => {
               <div 
                 key={st.name}
                 style={{
-                  background: 'var(--bg-surface)',
+                  background: '#f8fafc',
                   border: `1px solid ${st.border}`,
                   borderRadius: 'var(--radius-md)',
                   padding: '12px 14px',
@@ -348,7 +349,7 @@ export const OverviewView: React.FC = () => {
                       height: 8, 
                       borderRadius: '50%', 
                       background: st.color, 
-                      boxShadow: `0 0 8px ${st.color}` 
+                      boxShadow: `0 0 6px ${st.color}` 
                     }} />
                     <span style={{ fontWeight: 700, fontSize: '0.86rem', color: st.color }}>
                       {st.name}
@@ -371,11 +372,11 @@ export const OverviewView: React.FC = () => {
                 width: 34, 
                 height: 34, 
                 borderRadius: '8px', 
-                background: 'rgba(139, 92, 246, 0.15)', 
+                background: 'rgba(58, 156, 185, 0.12)', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: '#a78bfa' 
+                color: 'var(--brand-cerulean)' 
               }}>
                 <ShieldCheck size={18} />
               </div>
@@ -393,7 +394,7 @@ export const OverviewView: React.FC = () => {
               <div
                 key={role.title}
                 style={{
-                  background: 'var(--bg-surface)',
+                  background: '#f8fafc',
                   border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-md)',
                   padding: '14px',
@@ -401,7 +402,7 @@ export const OverviewView: React.FC = () => {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                   <role.icon size={16} color={role.badgeColor} />
-                  <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#fff' }}>
+                  <span style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--brand-navy)' }}>
                     {role.title}
                   </span>
                 </div>
@@ -419,7 +420,7 @@ export const OverviewView: React.FC = () => {
 
           <div style={{ marginTop: 'auto', paddingTop: 14 }}>
             <button 
-              className="btn-secondary"
+              className="btn-secondary" 
               onClick={() => setCurrentView('user_management')}
               style={{ width: '100%', justifyContent: 'center' }}
             >
@@ -435,7 +436,7 @@ export const OverviewView: React.FC = () => {
       <div className="card">
         <div className="card-header">
           <div className="card-title">
-            <Lock size={18} color="#3b82f6" />
+            <Lock size={18} color="var(--brand-cerulean)" />
             <span>Interactive Permissions & Role Governance Matrix</span>
           </div>
         </div>
@@ -455,48 +456,48 @@ export const OverviewView: React.FC = () => {
             <tbody>
               <tr>
                 <td style={{ fontWeight: 600 }}>Create New Projects</td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
               </tr>
               <tr>
                 <td style={{ fontWeight: 600 }}>Edit Budget & Financials</td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
               </tr>
               <tr>
                 <td style={{ fontWeight: 600 }}>Dispatch Email Invitations</td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
               </tr>
               <tr>
                 <td style={{ fontWeight: 600 }}>Add & Assign Deliverables</td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
               </tr>
               <tr>
                 <td style={{ fontWeight: 600 }}>Update Deliverable Status & Progress</td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
               </tr>
               <tr>
                 <td style={{ fontWeight: 600 }}>User Management & RBAC</td>
-                <td><CheckCircle2 size={16} color="#10b981" /></td>
-                <td><span style={{ color: '#f59e0b', fontSize: '0.75rem', fontWeight: 600 }}>Team Only</span></td>
+                <td><CheckCircle2 size={16} color="#059669" /></td>
+                <td><span style={{ color: '#d97706', fontSize: '0.75rem', fontWeight: 600 }}>Team Only</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>
                 <td><span style={{ color: 'var(--text-muted)' }}>—</span></td>

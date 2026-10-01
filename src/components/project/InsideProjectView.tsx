@@ -80,7 +80,7 @@ export const InsideProjectView: React.FC = () => {
   if (!selectedProject) {
     return (
       <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
-        <h2>No Project Selected</h2>
+        <h2 style={{ color: 'var(--brand-navy)' }}>No Project Selected</h2>
         <p style={{ color: 'var(--text-secondary)', marginTop: 8 }}>
           Please select a project from the project dashboard.
         </p>
@@ -119,134 +119,115 @@ export const InsideProjectView: React.FC = () => {
   const totalTax = deliverables.reduce((acc, d) => acc + getDelTax(d), 0);
   const grandTotal = deliverables.reduce((acc, d) => acc + getDelTotal(d), 0);
 
-  // Currency resolution based on actual expenses
-  const expenseCurrencies = deliverables.map((d) => (d.currency as CurrencyCode) || projectCurrency);
-  const uniqueExpenseCurrencies = Array.from(new Set(expenseCurrencies));
-  const isMultiCurrency = uniqueExpenseCurrencies.length > 1;
+  // Determine dominant or uniform currency in deliverables
+  const dominantDelCurrency = deliverables.length > 0 
+    ? ((deliverables[0].currency as CurrencyCode) || projectCurrency) 
+    : projectCurrency;
+  const expenseCurrSymbol = getCurrencySymbol(dominantDelCurrency);
+  const isMultiCurrency = deliverables.some(d => (d.currency || projectCurrency) !== dominantDelCurrency);
 
-  const primaryExpenseCurrency: CurrencyCode = (uniqueExpenseCurrencies.length > 0 
-    ? uniqueExpenseCurrencies[0] 
-    : projectCurrency) as CurrencyCode;
-    
-  const expenseCurrSymbol = getCurrencySymbol(primaryExpenseCurrency);
-
-  // Grouped totals per currency if multiple currencies exist
-  const currencyTotals = (uniqueExpenseCurrencies.length > 0 ? uniqueExpenseCurrencies : [projectCurrency]).map((curr) => {
-    const delsInCurr = deliverables.filter((d) => ((d.currency as CurrencyCode) || projectCurrency) === curr);
-    const cost = delsInCurr.reduce((acc, d) => acc + getDelCost(d), 0);
-    const tax = delsInCurr.reduce((acc, d) => acc + getDelTax(d), 0);
-    const total = delsInCurr.reduce((acc, d) => acc + getDelTotal(d), 0);
-    const sym = getCurrencySymbol(curr);
-    return { curr, sym, cost, tax, total, count: delsInCurr.length };
-  });
-
-  const formattedCostTotal = isMultiCurrency
-    ? currencyTotals.map((c) => `${c.sym}${c.cost.toLocaleString()}`).join(' + ')
+  const formattedCostTotal = isMultiCurrency 
+    ? `${expenseCurrSymbol}${totalCost.toLocaleString()} (approx)` 
     : `${expenseCurrSymbol}${totalCost.toLocaleString()}`;
 
-  const formattedTaxTotal = isMultiCurrency
-    ? currencyTotals.map((c) => `${c.sym}${c.tax.toLocaleString()}`).join(' + ')
+  const formattedTaxTotal = isMultiCurrency 
+    ? `${expenseCurrSymbol}${totalTax.toLocaleString()} (approx)` 
     : `${expenseCurrSymbol}${totalTax.toLocaleString()}`;
 
-  const formattedGrandTotal = isMultiCurrency
-    ? currencyTotals.map((c) => `${c.sym}${c.total.toLocaleString()}`).join(' + ')
+  const formattedGrandTotal = isMultiCurrency 
+    ? `${expenseCurrSymbol}${grandTotal.toLocaleString()} (approx)` 
     : `${expenseCurrSymbol}${grandTotal.toLocaleString()}`;
 
-  const expenseCurrencyLabel = isMultiCurrency
-    ? uniqueExpenseCurrencies.join(', ')
-    : primaryExpenseCurrency;
-
-  const handleInlineQuickAdd = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inlineExpenseType.trim()) return;
-
-    const baseCost = parseFloat(inlineCost) || 0;
-    const taxRateNum = parseFloat(inlineTaxRate) || 0;
-    const taxAmount = Math.round(baseCost * (taxRateNum / 100));
-    const totalAmount = baseCost + taxAmount;
-    const assignedUser = users.find((u) => u.name === inlineAssignee);
-
-    addDeliverable(project.id, {
-      name: inlineExpenseType.trim(),
-      category: 'General',
-      status: 'In Progress',
-      startDate: project.startDate,
-      endDate: project.targetEndDate,
-      progress: 25,
-      assignedTo: inlineAssignee,
-      assignedAvatar: assignedUser?.avatar,
-      currency: inlineCurrency,
-      cost: baseCost,
-      tax: taxAmount,
-      total: totalAmount,
-      value: baseCost,
-    });
-
-    setInlineExpenseType('');
-    const symbol = getCurrencySymbol(inlineCurrency);
-    showToast('Expense Added', `Added "${inlineExpenseType}" (${symbol}${totalAmount.toLocaleString()})`, 'success');
-  };
+  const expenseCurrencyLabel = isMultiCurrency ? 'Multi-Curr' : dominantDelCurrency;
 
   const getDeliverableStatusBadge = (status: DeliverableStatus) => {
     switch (status) {
       case 'Completed':
-        return { bg: 'rgba(16, 185, 129, 0.15)', color: '#10b981', border: 'rgba(16, 185, 129, 0.3)' };
+        return { bg: 'rgba(5, 150, 105, 0.1)', color: '#059669', border: 'rgba(5, 150, 105, 0.25)' };
       case 'In Progress':
-        return { bg: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: 'rgba(59, 130, 246, 0.3)' };
+        return { bg: 'rgba(58, 156, 185, 0.12)', color: 'var(--brand-cerulean)', border: 'rgba(58, 156, 185, 0.25)' };
       case 'Under Review':
-        return { bg: 'rgba(6, 182, 212, 0.15)', color: '#22d3ee', border: 'rgba(6, 182, 212, 0.3)' };
+        return { bg: 'rgba(2, 132, 199, 0.1)', color: '#0284c7', border: 'rgba(2, 132, 199, 0.25)' };
+      case 'Pending':
       default:
-        return { bg: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: 'rgba(245, 158, 11, 0.3)' };
+        return { bg: 'rgba(217, 119, 6, 0.1)', color: '#d97706', border: 'rgba(217, 119, 6, 0.25)' };
     }
   };
 
+  const handleInlineQuickAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inlineExpenseType.trim()) {
+      showToast('Input Required', 'Please enter an expense name', 'warning');
+      return;
+    }
+    const c = parseFloat(inlineCost) || 0;
+    const tRate = parseFloat(inlineTaxRate) || 0;
+    const calculatedTax = Math.round(c * (tRate / 100));
+    const calculatedTotal = c + calculatedTax;
 
+    addDeliverable(project.id, {
+      name: inlineExpenseType.trim(),
+      status: 'In Progress',
+      cost: c,
+      tax: calculatedTax,
+      total: calculatedTotal,
+      value: c,
+      currency: inlineCurrency,
+      progress: 0,
+      assignedTo: inlineAssignee,
+      assignedAvatar: users.find((u) => u.name === inlineAssignee)?.avatar,
+      startDate: new Date().toISOString().split('T')[0],
+      endDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
+      category: 'Production',
+      notes: `${inlineExpenseType.trim()} scoped for ${project.clientCompany}`,
+    });
+
+    setInlineExpenseType('');
+    showToast('Expense Logged', `Added "${inlineExpenseType.trim()}" (${inlineCurrency} ${calculatedTotal.toLocaleString()})`, 'success');
+  };
+
+  // Preview quick calculation
   const quickCostNum = parseFloat(inlineCost) || 0;
   const quickTaxNum = Math.round(quickCostNum * ((parseFloat(inlineTaxRate) || 0) / 100));
   const quickTotalNum = quickCostNum + quickTaxNum;
 
   return (
     <div className="inside-project-container" style={{ animation: 'fadeIn 0.25s ease' }}>
-      {/* Top Breadcrumb & Project Selector Bar */}
-      <div 
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '22px',
-          flexWrap: 'wrap',
-          gap: 14
-        }}
-      >
+      
+      {/* Back and Navigation Toolbar */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button 
             className="btn-secondary" 
             onClick={() => setCurrentView('dashboard')}
             style={{ padding: '7px 12px' }}
           >
-            <ArrowLeft size={15} />
+            <ArrowLeft size={16} />
             <span>Dashboard</span>
           </button>
-          
+
+          {/* Quick Project Switcher */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>Project /</span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Project:</span>
             <select
+              className="form-select"
               value={project.id}
               onChange={(e) => setSelectedProjectId(e.target.value)}
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-light)',
-                borderRadius: 'var(--radius-md)',
-                color: '#60a5fa',
+                width: 'auto',
+                minWidth: '220px',
+                background: 'rgba(22, 46, 74, 0.06)',
+                border: '1px solid rgba(22, 46, 74, 0.2)',
+                color: 'var(--brand-navy)',
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '0.92rem',
                 padding: '6px 12px',
                 cursor: 'pointer',
               }}
             >
               {projects.map((p) => (
-                <option key={p.id} value={p.id} style={{ background: '#1e293b', color: '#fff' }}>
+                <option key={p.id} value={p.id}>
                   {p.id} — {p.name} ({p.status})
                 </option>
               ))}
@@ -262,9 +243,9 @@ export const InsideProjectView: React.FC = () => {
               value={projectCurrency}
               onChange={(e) => updateProject(project.id, { currency: e.target.value })}
               style={{
-                background: 'rgba(59, 130, 246, 0.15)',
-                border: '1px solid rgba(59, 130, 246, 0.35)',
-                color: '#60a5fa',
+                background: 'rgba(58, 156, 185, 0.1)',
+                border: '1px solid rgba(58, 156, 185, 0.25)',
+                color: 'var(--brand-cerulean)',
                 borderRadius: 'var(--radius-md)',
                 padding: '5px 10px',
                 fontSize: '0.82rem',
@@ -275,7 +256,7 @@ export const InsideProjectView: React.FC = () => {
               title="Change Project Currency"
             >
               {CURRENCY_OPTIONS.map((c) => (
-                <option key={c.code} value={c.code} style={{ background: '#1e293b', color: '#fff' }}>
+                <option key={c.code} value={c.code}>
                   {c.code} ({c.symbol})
                 </option>
               ))}
@@ -294,11 +275,11 @@ export const InsideProjectView: React.FC = () => {
             onChange={(e) => updateProject(project.id, { status: e.target.value as ProjectStatus })}
             style={{ border: 'none', cursor: 'pointer', outline: 'none', padding: '6px 14px' }}
           >
-            <option value="Open" style={{ background: '#1e293b', color: '#10b981' }}>● Open</option>
-            <option value="On Hold" style={{ background: '#1e293b', color: '#f59e0b' }}>● On Hold</option>
-            <option value="Under Review" style={{ background: '#1e293b', color: '#06b6d4' }}>● Under Review</option>
-            <option value="Completed" style={{ background: '#1e293b', color: '#a855f7' }}>● Completed</option>
-            <option value="Cancelled" style={{ background: '#1e293b', color: '#ef4444' }}>● Cancelled</option>
+            <option value="Open" style={{ background: '#ffffff', color: '#059669' }}>● Open</option>
+            <option value="On Hold" style={{ background: '#ffffff', color: '#d97706' }}>● On Hold</option>
+            <option value="Under Review" style={{ background: '#ffffff', color: '#0284c7' }}>● Under Review</option>
+            <option value="Completed" style={{ background: '#ffffff', color: '#7c3aed' }}>● Completed</option>
+            <option value="Cancelled" style={{ background: '#ffffff', color: '#dc2626' }}>● Cancelled</option>
           </select>
         </div>
       </div>
@@ -309,16 +290,16 @@ export const InsideProjectView: React.FC = () => {
           <span style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '1rem',
-            background: 'rgba(59, 130, 246, 0.15)',
-            color: '#60a5fa',
+            background: 'rgba(22, 46, 74, 0.08)',
+            color: 'var(--brand-navy)',
             padding: '4px 10px',
             borderRadius: '6px',
             fontWeight: 700,
-            border: '1px solid rgba(59, 130, 246, 0.3)'
+            border: '1px solid rgba(22, 46, 74, 0.2)'
           }}>
             {project.id}
           </span>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.75rem', fontWeight: 800, color: 'var(--brand-navy)' }}>
             {project.name}
           </h1>
           <span className="category-badge category-branding" style={{ fontSize: '0.82rem' }}>
@@ -337,8 +318,9 @@ export const InsideProjectView: React.FC = () => {
         <div 
           className="card" 
           style={{ 
-            background: 'linear-gradient(135deg, rgba(23, 32, 51, 0.95), rgba(30, 41, 59, 0.95))',
-            border: '1px solid rgba(59, 130, 246, 0.25)' 
+            background: '#ffffff',
+            border: '1px solid var(--border-subtle)',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <div className="card-header">
@@ -347,11 +329,11 @@ export const InsideProjectView: React.FC = () => {
                 width: 32, 
                 height: 32, 
                 borderRadius: '8px', 
-                background: 'rgba(59, 130, 246, 0.2)', 
+                background: 'rgba(22, 46, 74, 0.08)', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: '#3b82f6' 
+                color: 'var(--brand-navy)' 
               }}>
                 <Building2 size={17} />
               </div>
@@ -359,11 +341,11 @@ export const InsideProjectView: React.FC = () => {
             </div>
             <span style={{ 
               fontSize: '0.72rem', 
-              background: 'rgba(16, 185, 129, 0.15)', 
-              color: '#34d399', 
+              background: 'rgba(5, 150, 105, 0.1)', 
+              color: '#059669', 
               padding: '3px 8px', 
               borderRadius: '999px',
-              fontWeight: 600
+              fontWeight: 700
             }}>
               {project.health}
             </span>
@@ -372,7 +354,7 @@ export const InsideProjectView: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {/* Client company & name */}
             <div style={{ 
-              background: 'var(--bg-input)', 
+              background: '#f8fafc', 
               padding: '12px 16px', 
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-subtle)',
@@ -384,7 +366,7 @@ export const InsideProjectView: React.FC = () => {
                 <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>
                   Client Brand / Account
                 </div>
-                <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#fff', marginTop: 2 }}>
+                <div style={{ fontWeight: 800, fontSize: '1.05rem', color: 'var(--brand-navy)', marginTop: 2 }}>
                   {project.clientCompany}
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: 2 }}>
@@ -395,11 +377,11 @@ export const InsideProjectView: React.FC = () => {
                 width: 40, 
                 height: 40, 
                 borderRadius: '10px', 
-                background: 'linear-gradient(135deg, #3b82f6, #6366f1)', 
+                background: 'linear-gradient(135deg, var(--brand-navy), var(--brand-cerulean))', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: '#fff',
+                color: '#ffffff',
                 fontWeight: 700,
                 fontSize: '1rem'
               }}>
@@ -409,43 +391,43 @@ export const InsideProjectView: React.FC = () => {
 
             {/* Contact details */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, fontSize: '0.82rem' }}>
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-muted)', marginBottom: 2 }}>
                   <Mail size={13} />
                   <span>Email</span>
                 </div>
-                <span style={{ color: 'var(--text-primary)', wordBreak: 'break-all' }}>{project.clientEmail}</span>
+                <span style={{ color: 'var(--text-primary)', wordBreak: 'break-all', fontWeight: 500 }}>{project.clientEmail}</span>
               </div>
 
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-muted)', marginBottom: 2 }}>
                   <Phone size={13} />
                   <span>Phone</span>
                 </div>
-                <span style={{ color: 'var(--text-primary)' }}>{project.clientPhone || 'N/A'}</span>
+                <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{project.clientPhone || 'N/A'}</span>
               </div>
             </div>
 
             {/* Financials & Dates */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, fontSize: '0.82rem' }}>
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-muted)', marginBottom: 2 }}>
-                  <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.85rem', lineHeight: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 13 }}>
+                  <span style={{ color: '#059669', fontWeight: 700, fontSize: '0.85rem', lineHeight: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 13 }}>
                     {currSymbol.trim()}
                   </span>
                   <span>Contract Budget ({projectCurrency})</span>
                 </div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: '#34d399' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '1.05rem', color: '#059669' }}>
                   {currSymbol}{project.budget.toLocaleString()}
                 </span>
               </div>
 
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-muted)', marginBottom: 2 }}>
                   <Calendar size={13} />
                   <span>Timeline</span>
                 </div>
-                <span style={{ color: 'var(--text-primary)', fontSize: '0.8rem' }}>
+                <span style={{ color: 'var(--text-primary)', fontSize: '0.8rem', fontWeight: 500 }}>
                   {project.startDate} → {project.targetEndDate}
                 </span>
               </div>
@@ -456,7 +438,7 @@ export const InsideProjectView: React.FC = () => {
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Project Lead:</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <UserAvatar name={effectiveLeadManager} avatarUrl={effectiveLeadAvatar} size={22} />
-                <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#fff' }}>{effectiveLeadManager}</span>
+                <span style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text-primary)' }}>{effectiveLeadManager}</span>
               </div>
             </div>
           </div>
@@ -466,8 +448,9 @@ export const InsideProjectView: React.FC = () => {
         <div 
           className="card"
           style={{ 
-            background: 'linear-gradient(135deg, rgba(23, 32, 51, 0.95), rgba(30, 41, 59, 0.95))',
-            border: '1px solid rgba(139, 92, 246, 0.25)' 
+            background: '#ffffff',
+            border: '1px solid var(--border-subtle)',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <div className="card-header">
@@ -476,11 +459,11 @@ export const InsideProjectView: React.FC = () => {
                 width: 32, 
                 height: 32, 
                 borderRadius: '8px', 
-                background: 'rgba(139, 92, 246, 0.2)', 
+                background: 'rgba(58, 156, 185, 0.12)', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: '#c084fc' 
+                color: 'var(--brand-cerulean)' 
               }}>
                 <CheckCircle2 size={17} />
               </div>
@@ -500,7 +483,7 @@ export const InsideProjectView: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Financial Overview Strip */}
             <div style={{ 
-              background: 'var(--bg-input)', 
+              background: '#f8fafc', 
               padding: '14px 16px', 
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-subtle)',
@@ -511,19 +494,19 @@ export const InsideProjectView: React.FC = () => {
             }}>
               <div>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Total Cost</div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: '#f1f5f9', marginTop: 2 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--text-primary)', marginTop: 2 }}>
                   {formattedCostTotal}
                 </div>
               </div>
               <div style={{ borderLeft: '1px solid var(--border-subtle)', borderRight: '1px solid var(--border-subtle)' }}>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Total Tax</div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: '#94a3b8', marginTop: 2 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--text-secondary)', marginTop: 2 }}>
                   {formattedTaxTotal}
                 </div>
               </div>
               <div>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Grand Total ({expenseCurrencyLabel})</div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '1.15rem', color: '#34d399', marginTop: 2 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '1.15rem', color: '#059669', marginTop: 2 }}>
                   {formattedGrandTotal}
                 </div>
               </div>
@@ -535,7 +518,7 @@ export const InsideProjectView: React.FC = () => {
                 <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
                   Execution Completion
                 </span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.95rem', color: '#60a5fa' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--brand-cerulean)' }}>
                   {progressPercent}% ({completedCount}/{deliverables.length})
                 </span>
               </div>
@@ -578,7 +561,7 @@ export const InsideProjectView: React.FC = () => {
                     className="form-select"
                     value={inlineCurrency}
                     onChange={(e) => setInlineCurrency(e.target.value as CurrencyCode)}
-                    style={{ fontSize: '0.78rem', padding: '6px 6px', width: '92px', fontWeight: 600, color: '#60a5fa' }}
+                    style={{ fontSize: '0.78rem', padding: '6px 6px', width: '92px', fontWeight: 700, color: 'var(--brand-navy)' }}
                   >
                     {CURRENCY_OPTIONS.map((c) => (
                       <option key={c.code} value={c.code}>{c.code} ({c.symbol})</option>
@@ -608,7 +591,7 @@ export const InsideProjectView: React.FC = () => {
                   />
                 </div>
 
-                <div style={{ fontSize: '0.78rem', color: '#34d399', fontFamily: 'var(--font-mono)', fontWeight: 700, padding: '0 4px', whiteSpace: 'nowrap' }}>
+                <div style={{ fontSize: '0.78rem', color: '#059669', fontFamily: 'var(--font-mono)', fontWeight: 700, padding: '0 4px', whiteSpace: 'nowrap' }}>
                   = {getCurrencySymbol(inlineCurrency)}{quickTotalNum.toLocaleString()}
                 </div>
 
@@ -631,10 +614,11 @@ export const InsideProjectView: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: 12
+          gap: 12,
+          background: '#ffffff'
         }}>
           <div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', color: '#fff' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: 'var(--brand-navy)' }}>
               Project Expenses & Deliverable Breakdown
             </div>
             <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 2 }}>
@@ -660,7 +644,6 @@ export const InsideProjectView: React.FC = () => {
             </button>
           </div>
         </div>
-
 
         <div className="table-container" style={{ border: 'none', borderRadius: 0 }}>
           <table className="custom-table">
@@ -693,7 +676,7 @@ export const InsideProjectView: React.FC = () => {
                     <tr key={del.id}>
                       {/* Expense Type */}
                       <td style={{ maxWidth: '300px' }}>
-                        <div style={{ fontWeight: 600, color: '#fff', fontSize: '0.88rem' }}>
+                        <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.88rem' }}>
                           {del.name}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4, flexWrap: 'wrap' }}>
@@ -701,9 +684,10 @@ export const InsideProjectView: React.FC = () => {
                             <span style={{ 
                               fontSize: '0.7rem', 
                               padding: '2px 6px', 
-                              background: 'rgba(255,255,255,0.06)', 
+                              background: '#f1f5f9', 
                               borderRadius: '4px', 
-                              color: '#94a3b8' 
+                              color: 'var(--text-secondary)',
+                              fontWeight: 600
                             }}>
                               {del.category}
                             </span>
@@ -723,8 +707,9 @@ export const InsideProjectView: React.FC = () => {
                                 alignItems: 'center', 
                                 gap: 3, 
                                 fontSize: '0.72rem', 
-                                color: '#60a5fa', 
-                                textDecoration: 'none' 
+                                color: 'var(--brand-cerulean)', 
+                                textDecoration: 'none',
+                                fontWeight: 600
                               }}
                             >
                               <Paperclip size={11} />
@@ -750,15 +735,15 @@ export const InsideProjectView: React.FC = () => {
                             borderRadius: '999px',
                             padding: '4px 12px',
                             fontSize: '0.78rem',
-                            fontWeight: 600,
+                            fontWeight: 700,
                             outline: 'none',
                             cursor: 'pointer',
                           }}
                         >
-                          <option value="Pending" style={{ background: '#1e293b', color: '#fbbf24' }}>● Pending</option>
-                          <option value="In Progress" style={{ background: '#1e293b', color: '#60a5fa' }}>● In Progress</option>
-                          <option value="Under Review" style={{ background: '#1e293b', color: '#22d3ee' }}>● Under Review</option>
-                          <option value="Completed" style={{ background: '#1e293b', color: '#10b981' }}>● Completed</option>
+                          <option value="Pending" style={{ background: '#ffffff', color: '#d97706' }}>● Pending</option>
+                          <option value="In Progress" style={{ background: '#ffffff', color: '#3a9cb9' }}>● In Progress</option>
+                          <option value="Under Review" style={{ background: '#ffffff', color: '#0284c7' }}>● Under Review</option>
+                          <option value="Completed" style={{ background: '#ffffff', color: '#059669' }}>● Completed</option>
                         </select>
                       </td>
 
@@ -766,7 +751,7 @@ export const InsideProjectView: React.FC = () => {
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <UserAvatar name={del.assignedTo} avatarUrl={del.assignedAvatar} size={24} />
-                          <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)', fontWeight: 500 }}>
+                          <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                             {del.assignedTo}
                           </span>
                         </div>
@@ -779,9 +764,9 @@ export const InsideProjectView: React.FC = () => {
                             value={(del.currency as CurrencyCode) || projectCurrency}
                             onChange={(e) => updateDeliverable(project.id, del.id, { currency: e.target.value as CurrencyCode })}
                             style={{
-                              background: 'rgba(59, 130, 246, 0.1)',
-                              border: '1px solid rgba(59, 130, 246, 0.25)',
-                              color: '#60a5fa',
+                              background: 'rgba(22, 46, 74, 0.06)',
+                              border: '1px solid rgba(22, 46, 74, 0.15)',
+                              color: 'var(--brand-navy)',
                               borderRadius: '4px',
                               fontSize: '0.72rem',
                               fontWeight: 700,
@@ -792,12 +777,12 @@ export const InsideProjectView: React.FC = () => {
                             title="Switch Expense Currency"
                           >
                             {CURRENCY_OPTIONS.map((c) => (
-                              <option key={c.code} value={c.code} style={{ background: '#1e293b', color: '#fff' }}>
+                              <option key={c.code} value={c.code}>
                                 {c.code} ({c.symbol})
                               </option>
                             ))}
                           </select>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 600, color: '#f8fafc' }}>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                             {getCurrencySymbol(del.currency || projectCurrency)}{cost.toLocaleString()}
                           </span>
                         </div>
@@ -806,7 +791,7 @@ export const InsideProjectView: React.FC = () => {
                       {/* Tax */}
                       <td style={{ textAlign: 'right' }}>
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, justifyContent: 'flex-end' }}>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#94a3b8' }}>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                             {getCurrencySymbol(del.currency || projectCurrency)}{tax.toLocaleString()}
                           </span>
                         </div>
@@ -814,7 +799,7 @@ export const InsideProjectView: React.FC = () => {
 
                       {/* Total */}
                       <td style={{ textAlign: 'right' }}>
-                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.92rem', fontWeight: 700, color: '#34d399' }}>
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.92rem', fontWeight: 800, color: '#059669' }}>
                           {getCurrencySymbol(del.currency || projectCurrency)}{total.toLocaleString()}
                         </div>
                       </td>
@@ -827,7 +812,7 @@ export const InsideProjectView: React.FC = () => {
                               className="btn-ghost"
                               onClick={() => updateDeliverable(project.id, del.id, { status: 'Completed', progress: 100 })}
                               title="Mark 100% Completed"
-                              style={{ padding: '4px 6px', color: '#34d399' }}
+                              style={{ padding: '4px 6px', color: '#059669' }}
                             >
                               <Check size={14} />
                             </button>
@@ -836,7 +821,7 @@ export const InsideProjectView: React.FC = () => {
                             className="btn-ghost"
                             onClick={() => deleteDeliverable(project.id, del.id)}
                             title="Delete Expense Item"
-                            style={{ padding: '4px 6px', color: '#f87171' }}
+                            style={{ padding: '4px 6px', color: '#dc2626' }}
                           >
                             <Trash2 size={14} />
                           </button>
@@ -850,8 +835,8 @@ export const InsideProjectView: React.FC = () => {
             {deliverables.length > 0 && (
               <tfoot>
                 <tr style={{
-                  background: 'linear-gradient(90deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
-                  borderTop: '2px solid rgba(59, 130, 246, 0.4)',
+                  background: '#f8fafc',
+                  borderTop: '2px solid var(--border-light)',
                   fontWeight: 700,
                 }}>
                   <td colSpan={3} style={{ padding: '16px 20px' }}>
@@ -861,7 +846,7 @@ export const InsideProjectView: React.FC = () => {
                         fontSize: '0.95rem', 
                         letterSpacing: '0.04em',
                         textTransform: 'uppercase',
-                        color: '#ffffff',
+                        color: 'var(--brand-navy)',
                         fontWeight: 800
                       }}>
                         Grand Total
@@ -870,26 +855,26 @@ export const InsideProjectView: React.FC = () => {
                         fontSize: '0.72rem', 
                         padding: '2px 8px', 
                         borderRadius: '999px', 
-                        background: 'rgba(59, 130, 246, 0.2)', 
-                        color: '#60a5fa',
-                        border: '1px solid rgba(59, 130, 246, 0.3)',
-                        fontWeight: 600
+                        background: 'rgba(22, 46, 74, 0.08)', 
+                        color: 'var(--brand-navy)',
+                        border: '1px solid rgba(22, 46, 74, 0.2)',
+                        fontWeight: 700
                       }}>
                         {deliverables.length} {deliverables.length === 1 ? 'Item' : 'Items'}
                       </span>
                     </div>
                   </td>
-                  <td style={{ textAlign: 'right', padding: '16px 14px', fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: '#f1f5f9', fontWeight: 700 }}>
+                  <td style={{ textAlign: 'right', padding: '16px 14px', fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-primary)', fontWeight: 700 }}>
                     {formattedCostTotal}
                   </td>
-                  <td style={{ textAlign: 'right', padding: '16px 14px', fontFamily: 'var(--font-mono)', fontSize: '0.92rem', color: '#cbd5e1', fontWeight: 600 }}>
+                  <td style={{ textAlign: 'right', padding: '16px 14px', fontFamily: 'var(--font-mono)', fontSize: '0.92rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                     {formattedTaxTotal}
                   </td>
-                  <td style={{ textAlign: 'right', padding: '16px 14px', fontFamily: 'var(--font-mono)', fontSize: '1.15rem', color: '#34d399', fontWeight: 800 }}>
+                  <td style={{ textAlign: 'right', padding: '16px 14px', fontFamily: 'var(--font-mono)', fontSize: '1.15rem', color: '#059669', fontWeight: 800 }}>
                     {formattedGrandTotal}
                   </td>
                   <td style={{ textAlign: 'right', padding: '16px 20px' }}>
-                    <span style={{ fontSize: '0.74rem', color: '#60a5fa', fontWeight: 700 }}>{expenseCurrencyLabel}</span>
+                    <span style={{ fontSize: '0.74rem', color: 'var(--brand-navy)', fontWeight: 700 }}>{expenseCurrencyLabel}</span>
                   </td>
                 </tr>
               </tfoot>

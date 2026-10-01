@@ -68,12 +68,12 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
             background: 'var(--bg-card)',
             border: '1px solid var(--border-light)',
             borderRadius: '10px',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-            minWidth: '210px',
+            boxShadow: 'var(--shadow-lg)',
+            minWidth: '220px',
             zIndex: 100,
             overflow: 'hidden',
             animation: 'fadeIn 0.15s ease',
-            padding: '4px',
+            padding: '6px',
           }}
         >
           <div style={{ padding: '6px 10px', fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.05em' }}>
@@ -92,29 +92,29 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
               borderRadius: '6px',
               background: 'transparent',
               border: 'none',
-              color: '#fff',
+              color: 'var(--text-primary)',
               fontSize: '0.82rem',
               cursor: 'pointer',
               textAlign: 'left',
               transition: 'background 0.15s',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(16, 185, 129, 0.15)')}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--bg-hover)')}
             onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
           >
             <div style={{
-              width: 26,
-              height: 26,
+              width: 28,
+              height: 28,
               borderRadius: '6px',
-              background: 'rgba(16, 185, 129, 0.2)',
-              color: '#34d399',
+              background: 'rgba(58, 156, 185, 0.15)',
+              color: 'var(--brand-cerulean)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <FileSpreadsheet size={15} />
+              <FileSpreadsheet size={16} />
             </div>
             <div>
-              <div style={{ fontWeight: 600, color: '#f8fafc' }}>Excel Spreadsheet</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Excel Spreadsheet</div>
               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Formatted .xlsx format</div>
             </div>
           </button>
@@ -131,29 +131,29 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
               borderRadius: '6px',
               background: 'transparent',
               border: 'none',
-              color: '#fff',
+              color: 'var(--text-primary)',
               fontSize: '0.82rem',
               cursor: 'pointer',
               textAlign: 'left',
               transition: 'background 0.15s',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)')}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--bg-hover)')}
             onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
           >
             <div style={{
-              width: 26,
-              height: 26,
+              width: 28,
+              height: 28,
               borderRadius: '6px',
-              background: 'rgba(59, 130, 246, 0.2)',
-              color: '#60a5fa',
+              background: 'var(--brand-coral-bg)',
+              color: 'var(--brand-coral)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <FileText size={15} />
+              <FileText size={16} />
             </div>
             <div>
-              <div style={{ fontWeight: 600, color: '#f8fafc' }}>CSV Document</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>CSV Document</div>
               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Raw table .csv with UTF-8 BOM</div>
             </div>
           </button>
@@ -171,7 +171,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
                 borderRadius: '6px',
                 background: 'transparent',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--text-primary)',
                 fontSize: '0.82rem',
                 cursor: 'pointer',
                 textAlign: 'left',
@@ -179,23 +179,23 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
                 marginTop: '4px',
                 transition: 'background 0.15s',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(139, 92, 246, 0.15)')}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--bg-hover)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
             >
               <div style={{
-                width: 26,
-                height: 26,
+                width: 28,
+                height: 28,
                 borderRadius: '6px',
-                background: 'rgba(139, 92, 246, 0.2)',
-                color: '#c084fc',
+                background: 'var(--brand-navy-bg)',
+                color: 'var(--brand-navy)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Layers size={15} />
+                <Layers size={16} />
               </div>
               <div>
-                <div style={{ fontWeight: 600, color: '#f8fafc' }}>Download Both</div>
+                <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Download Both</div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Excel (.xlsx) + CSV (.csv)</div>
               </div>
             </button>

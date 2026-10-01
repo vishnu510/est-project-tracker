@@ -66,11 +66,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
   return (
     <aside className="app-sidebar">
       {/* Brand Logo Header */}
-      <div className="sidebar-brand" onClick={() => setCurrentView('dashboard')}>
+      <div className="sidebar-brand" onClick={() => setCurrentView('dashboard')} title="EST Brand Services Dashboard">
         <ESTLogo height={44} />
       </div>
 
-      {/* Primary Action Button */}
+      {/* Primary Action Button - Logo Coral Red CTA */}
       <div style={{ padding: '0 18px 16px' }}>
         <button 
           className="btn-primary" 
@@ -127,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
           style={{ marginTop: 6 }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Database size={18} color={cloudStatus === 'online' ? '#34d399' : '#60a5fa'} />
+            <Database size={18} color={cloudStatus === 'online' ? '#059669' : '#3a9cb9'} />
             <span>Cloud Database & Sync</span>
           </div>
           <span style={{
@@ -135,8 +135,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
             fontWeight: 700,
             padding: '2px 6px',
             borderRadius: '4px',
-            background: cloudStatus === 'online' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(59, 130, 246, 0.2)',
-            color: cloudStatus === 'online' ? '#34d399' : '#60a5fa',
+            background: cloudStatus === 'online' ? 'rgba(5, 150, 105, 0.1)' : 'rgba(58, 156, 185, 0.12)',
+            color: cloudStatus === 'online' ? '#059669' : '#2d88a4',
           }}>
             {cloudStatus === 'online' ? 'Live' : 'DB'}
           </span>
@@ -146,7 +146,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
       {/* Mini Workspace Summary Card */}
       <div style={{ padding: '16px 18px', marginTop: 'auto' }}>
         <div style={{
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: '#f8fafc',
           border: '1px solid var(--border-subtle)',
           borderRadius: 'var(--radius-md)',
           padding: '12px 14px',
@@ -156,11 +156,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
             <span>{isSuperAdmin ? 'GLOBAL SPRINTS' : 'MY ACTIVE SPRINTS'}</span>
-            <span style={{ color: '#34d399', fontWeight: 700 }}>{openProjectsCount} Open</span>
+            <span style={{ color: '#059669', fontWeight: 700 }}>{openProjectsCount} Open</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
             <span>{isSuperAdmin ? 'COMPANY PIPELINE' : 'MANAGED BUDGET'}</span>
-            <span style={{ color: '#60a5fa', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{currencySymbol}{(totalBudget / 1000).toFixed(0)}k</span>
+            <span style={{ color: 'var(--brand-navy)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{currencySymbol}{(totalBudget / 1000).toFixed(0)}k</span>
           </div>
         </div>
       </div>
@@ -168,8 +168,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
       {/* Authenticated User Profile & Logout Box */}
       <div className="sidebar-footer">
         <div style={{
-          background: isSuperAdmin ? 'rgba(245, 158, 11, 0.1)' : 'rgba(59, 130, 246, 0.1)',
-          border: `1px solid ${isSuperAdmin ? 'rgba(245, 158, 11, 0.3)' : 'rgba(59, 130, 246, 0.3)'}`,
+          background: '#ffffff',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-sm)',
           borderRadius: '12px',
           padding: '12px 14px',
           display: 'flex',
@@ -182,15 +183,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAddProject }) => {
               avatarUrl={currentUser?.avatar} 
               size={34} 
               fontSize="0.85rem"
-              style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+              style={{ border: '1px solid var(--border-light)' }}
             />
             <div style={{ textAlign: 'left', minWidth: 0, flex: 1 }}>
-              <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {currentUser?.name || 'Guest User'}
               </div>
               <div style={{ 
                 fontSize: '0.7rem', 
-                color: isSuperAdmin ? '#fbbf24' : '#60a5fa',
+                color: isSuperAdmin ? '#d97706' : 'var(--brand-cerulean)',
                 fontWeight: 600,
                 display: 'flex',
                 alignItems: 'center',
