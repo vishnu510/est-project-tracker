@@ -10,6 +10,7 @@
   "files": [
     "dist/**/*",
     "electron/**/*",
+    "public/icon.png",
     "public/est-logo.png",
     "!dist/**/*.map"
   ],
@@ -28,7 +29,7 @@
         ]
       }
     ],
-    "icon": "public/est-logo.png"
+    "icon": "public/icon.png"
   },
   "nsis": {
     "oneClick": false,

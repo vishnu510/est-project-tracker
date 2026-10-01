@@ -1,7 +1,7 @@
 {
   "name": "est-trackers",
   "private": true,
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "EST Brand Services - Enterprise Project Tracker Portal",
   "author": "EST Brand Services",
   "type": "module",

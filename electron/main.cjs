@@ -27,7 +27,7 @@ function createWindow() {
     minWidth: 960,
     minHeight: 650,
     title: 'EST Brand Services — Project Tracker Portal',
-    icon: path.join(__dirname, '../public/est-logo.png'),
+    icon: path.join(__dirname, '../public/icon.png'),
     backgroundColor: '#ffffff',
     show: false,
     autoHideMenuBar: true,
